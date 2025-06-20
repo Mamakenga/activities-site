@@ -75,7 +75,7 @@ function Footer() {
     { id: 'learn_new', title: 'Узнать что-то новое', icon: 'bi-lightbulb' },
     { id: 'cooking', title: 'Кулинария', icon: 'bi-cup-hot' },
     { id: 'gifts', title: 'Сделать подарок', icon: 'bi-gift' },
-    { id: 'experiments', title: 'Эксперименты', icon: 'bi-flask-florence' },
+    { id: 'experiments', title: 'Эксперименты', icon: 'bi-lightning' },
     { id: 'reading_stories', title: 'Чтение и истории', icon: 'bi-book' },
     { id: 'surprise_me', title: 'Удиви меня!', icon: 'bi-dice-5' }
   ]
@@ -131,7 +131,7 @@ function Footer() {
               <li>
                 <Link href="/activities" className="hover:text-white transition-colors flex items-center gap-2">
                   <i className="bi bi-grid-3x3-gap"></i>
-                  Каталог идей
+                  Каталог активностей
                 </Link>
               </li>
               <li>
@@ -158,10 +158,9 @@ function Footer() {
                 {categories.map((category) => (
                   <button
                     key={category.id}
-                    className="w-full px-3 py-2 text-left hover:bg-slate-700 transition-colors flex items-center gap-2 text-slate-300 hover:text-white first:rounded-t-lg last:rounded-b-lg"
+                    className="w-full px-3 py-2 text-left hover:bg-slate-700 transition-colors text-slate-300 hover:text-white first:rounded-t-lg last:rounded-b-lg"
                     onClick={() => handleCategorySelect(category)}
                   >
-                    <i className={`${category.icon} text-cyan-400`}></i>
                     {category.title}
                   </button>
                 ))}
