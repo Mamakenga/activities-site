@@ -22,36 +22,37 @@ export default function ActivitiesPage() {
     { id: '3-5', title: '3-5 лет' },
     { id: '6-8', title: '6-8 лет' },
     { id: '9-12', title: '9-12 лет' },
-    { id: '13-16', title: '13-16 лет' },
+    { id: '13-17', title: '13-17 лет' },
+    { id: '18+', title: '18+ лет' },
   ]
 
   useEffect(() => {
-    fetchActivities()
-  }, [fetchActivities])
+    async function fetchActivities() {
+      setLoading(true)
+      try {
+        let query = supabase.from('activities').select('*')
 
-  const fetchActivities = async () => {
-    setLoading(true)
-    try {
-      let query = supabase.from('activities').select('*')
-      
-      if (selectedCategory !== 'all') {
-        query = query.eq('category', selectedCategory)
-      }
-      
-      if (selectedAge !== 'all') {
-        query = query.contains('age_groups', [selectedAge])
-      }
+        if (selectedCategory !== 'all') {
+          query = query.eq('category', selectedCategory)
+        }
 
-      const { data, error } = await query.order('created_at', { ascending: false })
-      
-      if (error) throw error
-      setActivities(data || [])
-    } catch (error) {
-      console.error('Ошибка загрузки:', error)
-    } finally {
-      setLoading(false)
+        if (selectedAge !== 'all') {
+          query = query.contains('age_groups', [selectedAge])
+        }
+
+        const { data, error } = await query.order('created_at', { ascending: false })
+
+        if (error) throw error
+        setActivities(data || [])
+      } catch (error) {
+        console.error('Ошибка загрузки:', error)
+      } finally {
+        setLoading(false)
+      }
     }
-  }
+
+    fetchActivities()
+  }, [selectedCategory, selectedAge])
 
   const getDurationText = (minutes: number) => {
     if (minutes <= 20) return `${minutes} мин ⚡`
