@@ -99,45 +99,65 @@ function Footer() {
                   Каталог активностей
                 </Link>
               </li>
+              <div className="relative">
+            <button 
+              className="font-bold text-lg mb-4 text-cyan-400 flex items-center gap-2 hover:text-cyan-300 transition-colors"
+              onClick={() => document.getElementById('categories-menu')?.classList.toggle('hidden')}
+            >
+              Категории
+              <i className="bi bi-chevron-down"></i>
+            </button>
+            <ul id="categories-menu" className="hidden space-y-2 text-slate-400 bg-slate-800 rounded-lg p-3 absolute bottom-full mb-2 w-64 z-10">
               <li>
-                <a href="https://t.me/ne_skuchno_bot" className="hover:text-white transition-colors flex items-center gap-2">
-                  <i className="bi bi-telegram"></i>
-                  Telegram бот
-                </a>
-              </li>
-            </ul>
-          </div>
-
-          <div>
-            <h3 className="font-bold text-lg mb-4 text-cyan-400">Категории</h3>
-            <ul className="space-y-2 text-slate-400">
-              <li>
-                <Link href="/activities?category=creativity" className="hover:text-white transition-colors flex items-center gap-2">
+                <Link href="/activities?category=creativity" className="hover:text-white transition-colors flex items-center gap-2 p-2 hover:bg-slate-700 rounded">
                   <i className="bi bi-palette"></i>
                   Творчество
                 </Link>
               </li>
               <li>
-                <Link href="/activities?category=active_games" className="hover:text-white transition-colors flex items-center gap-2">
+                <Link href="/activities?category=active_games" className="hover:text-white transition-colors flex items-center gap-2 p-2 hover:bg-slate-700 rounded">
                   <i className="bi bi-bicycle"></i>
                   Активные игры
                 </Link>
               </li>
               <li>
-                <Link href="/activities?category=cooking" className="hover:text-white transition-colors flex items-center gap-2">
+                <Link href="/activities?category=learn_new" className="hover:text-white transition-colors flex items-center gap-2 p-2 hover:bg-slate-700 rounded">
+                  <i className="bi bi-lightbulb"></i>
+                  Узнать что-то новое
+                </Link>
+              </li>
+              <li>
+                <Link href="/activities?category=cooking" className="hover:text-white transition-colors flex items-center gap-2 p-2 hover:bg-slate-700 rounded">
                   <i className="bi bi-cup-hot"></i>
                   Кулинария
                 </Link>
               </li>
               <li>
-                <Link href="/activities?category=experiments" className="hover:text-white transition-colors flex items-center gap-2">
+                <Link href="/activities?category=gifts" className="hover:text-white transition-colors flex items-center gap-2 p-2 hover:bg-slate-700 rounded">
+                  <i className="bi bi-gift"></i>
+                  Сделать подарок
+                </Link>
+              </li>
+              <li>
+                <Link href="/activities?category=experiments" className="hover:text-white transition-colors flex items-center gap-2 p-2 hover:bg-slate-700 rounded">
                   <i className="bi bi-flask"></i>
                   Эксперименты
                 </Link>
               </li>
+              <li>
+                <Link href="/activities?category=reading_stories" className="hover:text-white transition-colors flex items-center gap-2 p-2 hover:bg-slate-700 rounded">
+                  <i className="bi bi-book"></i>
+                  Чтение и истории
+                </Link>
+              </li>
+              <li>
+                <Link href="/activities?category=surprise_me" className="hover:text-white transition-colors flex items-center gap-2 p-2 hover:bg-slate-700 rounded">
+                  <i className="bi bi-dice-5"></i>
+                  Удиви меня!
+                </Link>
+              </li>
             </ul>
           </div>
-        </div>
         
         <div className="border-t border-slate-700 pt-8 mt-8 text-center text-slate-400">
           <div className="flex items-center justify-center gap-4 mb-4">
