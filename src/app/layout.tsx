@@ -100,7 +100,7 @@ function Footer() {
                 </Link>
               </li>
               <li>
-                <a href="https://t.me/mamakenga" className="hover:text-white transition-colors flex items-center gap-2">
+                <a href="https://t.me/ne_skuchno_bot" className="hover:text-white transition-colors flex items-center gap-2">
                   <i className="bi bi-telegram"></i>
                   Telegram бот
                 </a>
