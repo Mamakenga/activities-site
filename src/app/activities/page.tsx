@@ -52,9 +52,9 @@ export default function ActivitiesPage() {
     }
 
     fetchActivities()
-  }, [selectedCategory, selectedAge])
+}, [selectedCategory, selectedAge])
 
-  const getDurationText = (minutes: number) => {
+  function getDurationText(minutes: number) {
     if (minutes <= 20) return `${minutes} мин ⚡`
     if (minutes <= 45) return `${minutes} мин 🕐`
     return `${minutes} мин 🕒`
