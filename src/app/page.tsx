@@ -301,7 +301,7 @@ export default function Home() {
             </h3>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <a 
-                href="https://t.me/mamakenga"
+                href="https://t.me/ne_skuchno_bot"
                 className="bg-yellow-400 text-slate-800 px-8 py-4 rounded-xl font-semibold text-lg hover:bg-yellow-500 transition-colors inline-flex items-center justify-center gap-2"
               >
                 <i className="bi bi-telegram"></i>
