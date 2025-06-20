@@ -75,7 +75,7 @@ function Footer() {
     { id: 'learn_new', title: 'Узнать что-то новое', icon: 'bi-lightbulb' },
     { id: 'cooking', title: 'Кулинария', icon: 'bi-cup-hot' },
     { id: 'gifts', title: 'Сделать подарок', icon: 'bi-gift' },
-    { id: 'experiments', title: 'Эксперименты', icon: 'bi-beaker' },
+    { id: 'experiments', title: 'Эксперименты', icon: 'bi-lightning' },
     { id: 'reading_stories', title: 'Чтение и истории', icon: 'bi-book' },
     { id: 'surprise_me', title: 'Удиви меня!', icon: 'bi-dice-5' }
   ]
