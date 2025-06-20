@@ -22,7 +22,7 @@ export default function ActivitiesPage() {
   ]
 
   const ageGroups = [
-    { id: 'all', title: 'Все возрасты' },
+    { id: 'all', title: 'Все возраста' },
     { id: '3-5', title: '3-5 лет' },
     { id: '6-8', title: '6-8 лет' },
     { id: '9-12', title: '9-12 лет' },
