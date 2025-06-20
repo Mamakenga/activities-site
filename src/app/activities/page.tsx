@@ -27,7 +27,7 @@ export default function ActivitiesPage() {
 
   useEffect(() => {
     fetchActivities()
-  }, [selectedCategory, selectedAge])
+  }, [fetchActivities])
 
   const fetchActivities = async () => {
     setLoading(true)
