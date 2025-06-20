@@ -10,11 +10,15 @@ export default function ActivitiesPage() {
   const [selectedAge, setSelectedAge] = useState<string>('all')
 
   const categories = [
-    { id: 'all', title: 'Все категории', emoji: '🎯' },
-    { id: 'creativity', title: 'Творчество', emoji: '🎨' },
-    { id: 'active_games', title: 'Активные игры', emoji: '🏃‍♂️' },
-    { id: 'cooking', title: 'Кулинария', emoji: '👨‍🍳' },
-    { id: 'experiments', title: 'Эксперименты', emoji: '🔬' },
+    { id: 'all', title: 'Все категории', icon: 'bi-bullseye' },
+    { id: 'creativity', title: 'Творчество', icon: 'bi-palette' },
+    { id: 'active_games', title: 'Активные игры', icon: 'bi-bicycle' },
+    { id: 'learn_new', title: 'Узнать что-то новое', icon: 'bi-lightbulb' },
+    { id: 'cooking', title: 'Кулинария', icon: 'bi-cup-hot' },
+    { id: 'gifts', title: 'Сделать подарок', icon: 'bi-gift' },
+    { id: 'experiments', title: 'Эксперименты', icon: 'bi-flask' },
+    { id: 'reading_stories', title: 'Чтение и истории', icon: 'bi-book' },
+    { id: 'surprise_me', title: 'Удиви меня!', icon: 'bi-dice-5' },
   ]
 
   const ageGroups = [
@@ -52,52 +56,69 @@ export default function ActivitiesPage() {
     }
 
     fetchActivities()
-}, [selectedCategory, selectedAge])
+  }, [selectedCategory, selectedAge])
 
   function getDurationText(minutes: number) {
-    if (minutes <= 20) return `${minutes} мин ⚡`
-    if (minutes <= 45) return `${minutes} мин 🕐`
-    return `${minutes} мин 🕒`
+    if (minutes <= 20) return `${minutes} мин`
+    if (minutes <= 45) return `${minutes} мин`
+    return `${minutes} мин`
   }
 
-  const getDifficultyEmoji = (difficulty: string) => {
+  function getDurationIcon(minutes: number) {
+    if (minutes <= 20) return 'bi-lightning-charge'
+    if (minutes <= 45) return 'bi-clock'
+    return 'bi-hourglass'
+  }
+
+  const getDifficultyIcon = (difficulty: string) => {
     switch (difficulty) {
-      case 'easy': return '😊'
-      case 'medium': return '🤔'
-      case 'hard': return '😤'
-      default: return '😊'
+      case 'easy': return 'bi-emoji-smile'
+      case 'medium': return 'bi-emoji-neutral'
+      case 'hard': return 'bi-emoji-frown'
+      default: return 'bi-emoji-smile'
+    }
+  }
+
+  const getDifficultyText = (difficulty: string) => {
+    switch (difficulty) {
+      case 'easy': return 'Легко'
+      case 'medium': return 'Средне'
+      case 'hard': return 'Сложно'
+      default: return 'Легко'
     }
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 p-4">
+    <div className="min-h-screen bg-slate-800 text-white p-4">
       <div className="max-w-6xl mx-auto">
         {/* Заголовок */}
         <div className="text-center mb-8">
-          <h1 className="text-4xl font-bold text-gray-800 mb-2">
-            🎯 Каталог активностей
+          <h1 className="text-4xl font-bold mb-2 flex items-center justify-center gap-3">
+            <i className="bi bi-grid-3x3-gap text-yellow-400"></i>
+            Каталог интересных занятий
           </h1>
-          <p className="text-gray-600">
-            Найди идеальное занятие для своего ребенка!
+          <p className="text-slate-300">
+            Найди идеальное занятие для себя или своего ребенка!
           </p>
         </div>
 
         {/* Фильтры */}
-        <div className="bg-white rounded-xl shadow-sm p-6 mb-6">
+        <div className="bg-slate-700 rounded-xl border border-slate-600 p-6 mb-6">
           <div className="grid md:grid-cols-2 gap-4">
             {/* Категории */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
+              <label className="block text-sm font-medium text-cyan-400 mb-2 flex items-center gap-2">
+                <i className="bi bi-funnel"></i>
                 Категория
               </label>
               <select
                 value={selectedCategory}
                 onChange={(e) => setSelectedCategory(e.target.value)}
-                className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className="w-full p-3 bg-slate-600 border border-slate-500 rounded-lg focus:ring-2 focus:ring-yellow-400 focus:border-yellow-400 text-white"
               >
                 {categories.map((cat) => (
-                  <option key={cat.id} value={cat.id}>
-                    {cat.emoji} {cat.title}
+                  <option key={cat.id} value={cat.id} className="bg-slate-600">
+                    {cat.title}
                   </option>
                 ))}
               </select>
@@ -105,16 +126,17 @@ export default function ActivitiesPage() {
 
             {/* Возраст */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
+              <label className="block text-sm font-medium text-cyan-400 mb-2 flex items-center gap-2">
+                <i className="bi bi-people"></i>
                 Возраст
               </label>
               <select
                 value={selectedAge}
                 onChange={(e) => setSelectedAge(e.target.value)}
-                className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className="w-full p-3 bg-slate-600 border border-slate-500 rounded-lg focus:ring-2 focus:ring-yellow-400 focus:border-yellow-400 text-white"
               >
                 {ageGroups.map((age) => (
-                  <option key={age.id} value={age.id}>
+                  <option key={age.id} value={age.id} className="bg-slate-600">
                     {age.title}
                   </option>
                 ))}
@@ -126,62 +148,85 @@ export default function ActivitiesPage() {
         {/* Результаты */}
         {loading ? (
           <div className="text-center py-12">
-            <div className="text-2xl mb-2">⏳</div>
-            <p className="text-gray-600">Загружаем активности...</p>
+            <div className="w-12 h-12 border-4 border-yellow-400 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+            <p className="text-slate-300">Загружаем интересные занятия...</p>
           </div>
         ) : (
           <>
-            <div className="mb-4">
-              <p className="text-gray-600">
-                Найдено активностей: <span className="font-semibold">{activities.length}</span>
+            <div className="mb-6 flex items-center justify-between">
+              <p className="text-slate-300 flex items-center gap-2">
+                <i className="bi bi-search text-cyan-400"></i>
+                Найдено интересных занятий: <span className="font-semibold text-yellow-400">{activities.length}</span>
               </p>
+              {activities.length > 0 && (
+                <button
+                  onClick={() => {
+                    setSelectedCategory('all')
+                    setSelectedAge('all')
+                  }}
+                  className="text-cyan-400 hover:text-cyan-300 text-sm flex items-center gap-1 transition-colors"
+                >
+                  <i className="bi bi-arrow-clockwise"></i>
+                  Сбросить фильтры
+                </button>
+              )}
             </div>
 
-            {/* Сетка активностей */}
+            {/* Сетка занятий */}
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
               {activities.map((activity) => (
                 <div
                   key={activity.id}
-                  className="bg-white rounded-xl shadow-sm hover:shadow-md transition-shadow p-6 border border-gray-100"
+                  className="bg-slate-700 rounded-xl border border-slate-600 hover:border-yellow-400 transition-all duration-300 p-6 hover:shadow-lg hover:shadow-yellow-400/10"
                 >
                   {/* Заголовок */}
                   <div className="flex items-start justify-between mb-3">
-                    <h3 className="font-semibold text-lg text-gray-800 line-clamp-2">
+                    <h3 className="font-semibold text-lg text-white line-clamp-2">
                       {activity.title}
                     </h3>
                     {activity.premium && (
-                      <span className="bg-yellow-100 text-yellow-800 text-xs px-2 py-1 rounded-full ml-2">
-                        ⭐ Premium
+                      <span className="bg-yellow-400 text-slate-800 text-xs px-2 py-1 rounded-full ml-2 flex items-center gap-1">
+                        <i className="bi bi-star-fill"></i>
+                        Premium
                       </span>
                     )}
                   </div>
 
                   {/* Описание */}
-                  <p className="text-gray-600 text-sm mb-4 line-clamp-2">
+                  <p className="text-slate-300 text-sm mb-4 line-clamp-2">
                     {activity.short_description}
                   </p>
 
                   {/* Метаданные */}
-                  <div className="flex items-center justify-between text-sm text-gray-500 mb-4">
-                    <span>{getDurationText(activity.duration_minutes)}</span>
-                    <span>{getDifficultyEmoji(activity.difficulty)} {activity.difficulty}</span>
+                  <div className="flex items-center justify-between text-sm mb-4">
+                    <span className="text-cyan-400 flex items-center gap-1">
+                      <i className={getDurationIcon(activity.duration_minutes)}></i>
+                      {getDurationText(activity.duration_minutes)}
+                    </span>
+                    <span className="text-yellow-400 flex items-center gap-1">
+                      <i className={getDifficultyIcon(activity.difficulty)}></i>
+                      {getDifficultyText(activity.difficulty)}
+                    </span>
                   </div>
 
                   {/* Материалы */}
                   {activity.materials && activity.materials.length > 0 && (
                     <div className="mb-4">
-                      <p className="text-xs text-gray-500 mb-1">Понадобится:</p>
+                      <p className="text-xs text-slate-400 mb-2 flex items-center gap-1">
+                        <i className="bi bi-tools"></i>
+                        Понадобится:
+                      </p>
                       <div className="flex flex-wrap gap-1">
                         {activity.materials.slice(0, 3).map((material, idx) => (
                           <span
                             key={idx}
-                            className="bg-gray-100 text-gray-700 text-xs px-2 py-1 rounded"
+                            className="bg-slate-600 text-slate-200 text-xs px-2 py-1 rounded border border-slate-500"
                           >
                             {material}
                           </span>
                         ))}
                         {activity.materials.length > 3 && (
-                          <span className="text-xs text-gray-500">
+                          <span className="text-xs text-slate-400 px-2 py-1">
                             +{activity.materials.length - 3}
                           </span>
                         )}
@@ -190,7 +235,8 @@ export default function ActivitiesPage() {
                   )}
 
                   {/* Кнопка */}
-                  <button className="w-full bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded-lg transition-colors text-sm font-medium">
+                  <button className="w-full bg-yellow-400 hover:bg-yellow-500 text-slate-800 py-2 px-4 rounded-lg transition-colors text-sm font-medium flex items-center justify-center gap-2">
+                    <i className="bi bi-arrow-right-circle"></i>
                     Подробнее
                   </button>
                 </div>
@@ -200,13 +246,25 @@ export default function ActivitiesPage() {
             {/* Пустое состояние */}
             {activities.length === 0 && (
               <div className="text-center py-12">
-                <div className="text-4xl mb-4">🔍</div>
-                <h3 className="text-xl font-semibold text-gray-700 mb-2">
-                  Активности не найдены
+                <div className="w-16 h-16 bg-slate-700 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <i className="bi bi-search text-3xl text-slate-400"></i>
+                </div>
+                <h3 className="text-xl font-semibold text-white mb-2">
+                  Интересные занятия не найдены
                 </h3>
-                <p className="text-gray-500">
-                  Попробуйте изменить фильтры или добавить новые активности
+                <p className="text-slate-400 mb-4">
+                  Попробуйте изменить фильтры или добавить новые занятия
                 </p>
+                <button
+                  onClick={() => {
+                    setSelectedCategory('all')
+                    setSelectedAge('all')
+                  }}
+                  className="bg-cyan-400 hover:bg-cyan-500 text-slate-800 px-6 py-2 rounded-lg transition-colors font-medium flex items-center gap-2 mx-auto"
+                >
+                  <i className="bi bi-arrow-clockwise"></i>
+                  Сбросить фильтры
+                </button>
               </div>
             )}
           </>
