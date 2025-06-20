@@ -23,12 +23,14 @@ function Navigation() {
     <nav className="bg-slate-900 border-b border-slate-700 sticky top-0 z-50">
       <div className="max-w-6xl mx-auto px-4">
         <div className="flex items-center justify-between h-16">
+          {/* Logo */}
           <Link href="/" className="flex items-center gap-2 font-bold text-xl text-white hover:text-yellow-400 transition-colors">
             <i className="bi bi-bullseye text-yellow-400 text-2xl"></i>
             <span className="hidden sm:block">Мама, мне скучно!</span>
             <span className="sm:hidden">Идеи занятий</span>
           </Link>
 
+          {/* Navigation Links */}
           <div className="flex items-center gap-1">
             <Link 
               href="/" 
@@ -59,7 +61,42 @@ function Navigation() {
   )
 }
 
+'use client'
+import { useState, useEffect, useRef } from 'react'
+
 function Footer() {
+  const [showCategories, setShowCategories] = useState(false)
+  const [selectedCategory, setSelectedCategory] = useState('Выберите категорию...')
+  const dropdownRef = useRef<HTMLDivElement>(null)
+
+  const categories = [
+    { id: 'creativity', title: 'Творчество', icon: 'bi-palette' },
+    { id: 'active_games', title: 'Активные игры', icon: 'bi-bicycle' },
+    { id: 'learn_new', title: 'Узнать что-то новое', icon: 'bi-lightbulb' },
+    { id: 'cooking', title: 'Кулинария', icon: 'bi-cup-hot' },
+    { id: 'gifts', title: 'Сделать подарок', icon: 'bi-gift' },
+    { id: 'experiments', title: 'Эксперименты', icon: 'bi-lightning' },
+    { id: 'reading_stories', title: 'Чтение и истории', icon: 'bi-book' },
+    { id: 'surprise_me', title: 'Удиви меня!', icon: 'bi-dice-5' }
+  ]
+
+  const handleCategorySelect = (category: typeof categories[0]) => {
+    setSelectedCategory(category.title)
+    setShowCategories(false)
+    window.location.href = `/activities?category=${category.id}`
+  }
+
+  // Закрытие dropdown при клике вне него
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setShowCategories(false)
+      }
+    }
+
+    document.addEventListener('mousedown', handleClickOutside)
+    return () => document.removeEventListener('mousedown', handleClickOutside)
+  }, [])
   return (
     <footer className="bg-slate-900 border-t border-slate-700 text-white py-12">
       <div className="max-w-6xl mx-auto px-4">
@@ -94,7 +131,7 @@ function Footer() {
               <li>
                 <Link href="/activities" className="hover:text-white transition-colors flex items-center gap-2">
                   <i className="bi bi-grid-3x3-gap"></i>
-                  Каталог идей
+                  Каталог активностей
                 </Link>
               </li>
               <li>
@@ -106,58 +143,29 @@ function Footer() {
             </ul>
           </div>
 
-          <div>
+          <div className="relative" ref={dropdownRef}>
             <h3 className="font-bold text-lg mb-4 text-cyan-400">Категории</h3>
-            <ul className="space-y-2 text-slate-400">
-              <li>
-                <Link href="/activities?category=creativity" className="hover:text-white transition-colors flex items-center gap-2">
-                  <i className="bi bi-palette"></i>
-                  Творчество
-                </Link>
-              </li>
-              <li>
-                <Link href="/activities?category=active_games" className="hover:text-white transition-colors flex items-center gap-2">
-                  <i className="bi bi-bicycle"></i>
-                  Активные игры
-                </Link>
-              </li>
-              <li>
-                <Link href="/activities?category=learn_new" className="hover:text-white transition-colors flex items-center gap-2">
-                  <i className="bi bi-lightbulb"></i>
-                  Узнать что-то новое
-                </Link>
-              </li>
-              <li>
-                <Link href="/activities?category=cooking" className="hover:text-white transition-colors flex items-center gap-2">
-                  <i className="bi bi-cup-hot"></i>
-                  Кулинария
-                </Link>
-              </li>
-              <li>
-                <Link href="/activities?category=gifts" className="hover:text-white transition-colors flex items-center gap-2">
-                  <i className="bi bi-gift"></i>
-                  Сделать подарок
-                </Link>
-              </li>
-              <li>
-                <Link href="/activities?category=experiments" className="hover:text-white transition-colors flex items-center gap-2">
-                  <i className="bi bi-beaker"></i>
-                  Эксперименты
-                </Link>
-              </li>
-              <li>
-                <Link href="/activities?category=reading_stories" className="hover:text-white transition-colors flex items-center gap-2">
-                  <i className="bi bi-book"></i>
-                  Чтение и истории
-                </Link>
-              </li>
-              <li>
-                <Link href="/activities?category=surprise_me" className="hover:text-white transition-colors flex items-center gap-2">
-                  <i className="bi bi-dice-5"></i>
-                  Удиви меня!
-                </Link>
-              </li>
-            </ul>
+            <button
+              className="w-full bg-slate-800 border border-slate-600 text-slate-300 rounded-lg px-3 py-2 text-left flex items-center justify-between hover:bg-slate-700 focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:border-transparent transition-colors"
+              onClick={() => setShowCategories(!showCategories)}
+            >
+              <span className="text-slate-400">{selectedCategory}</span>
+              <i className={`bi bi-chevron-${showCategories ? 'up' : 'down'} transition-transform`}></i>
+            </button>
+            
+            {showCategories && (
+              <div className="absolute top-full left-0 right-0 mt-1 bg-slate-800 border border-slate-600 rounded-lg shadow-lg z-10 max-h-60 overflow-y-auto">
+                {categories.map((category) => (
+                  <button
+                    key={category.id}
+                    className="w-full px-3 py-2 text-left hover:bg-slate-700 transition-colors text-slate-300 hover:text-white first:rounded-t-lg last:rounded-b-lg"
+                    onClick={() => handleCategorySelect(category)}
+                  >
+                    {category.title}
+                  </button>
+                ))}
+              </div>
+            )}
           </div>
         </div>
         
@@ -185,6 +193,7 @@ export default function RootLayout({
   return (
     <html lang="ru">
       <head>
+        {/* Bootstrap Icons CDN */}
         <link 
           rel="stylesheet" 
           href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css"
