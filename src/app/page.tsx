@@ -39,7 +39,7 @@ export default function Home() {
           
           <h1 className="text-5xl md:text-6xl font-bold mb-6">
             Конец скуке!<br />
-            <span className="text-yellow-400">120+ активностей</span> для детей
+            <span className="text-yellow-400">120+ идей, чем заняться без гаджетов</span> для детей и взрослых
           </h1>
           
           <p className="text-xl text-slate-300 mb-8 max-w-2xl mx-auto">
