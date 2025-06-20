@@ -317,7 +317,7 @@ export default function Home() {
             </div>
             <p className="text-slate-400 text-sm mt-4 flex items-center justify-center gap-2">
               <i className="bi bi-bar-chart text-yellow-400"></i>
-              Уже помогли найти занятия для 10,000+ детей и взрослым
+              Уже помогли найти занятия для 10,000+ детей и взрослых
             </p>
           </div>
         </div>
