@@ -141,7 +141,7 @@ function Footer() {
               </li>
               <li>
                 <Link href="/activities?category=experiments" className="hover:text-white transition-colors flex items-center gap-2">
-                  <i className="bi bi-flask"></i>
+                  <i className="bi bi-beaker"></i>
                   Эксперименты
                 </Link>
               </li>
