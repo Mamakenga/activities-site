@@ -23,14 +23,12 @@ function Navigation() {
     <nav className="bg-slate-900 border-b border-slate-700 sticky top-0 z-50">
       <div className="max-w-6xl mx-auto px-4">
         <div className="flex items-center justify-between h-16">
-          {/* Logo */}
           <Link href="/" className="flex items-center gap-2 font-bold text-xl text-white hover:text-yellow-400 transition-colors">
             <i className="bi bi-bullseye text-yellow-400 text-2xl"></i>
             <span className="hidden sm:block">Мама, мне скучно!</span>
             <span className="sm:hidden">Идеи занятий</span>
           </Link>
 
-          {/* Navigation Links */}
           <div className="flex items-center gap-1">
             <Link 
               href="/" 
@@ -60,8 +58,6 @@ function Navigation() {
     </nav>
   )
 }
-
-'use client'
 
 function Footer() {
   return (
@@ -98,7 +94,7 @@ function Footer() {
               <li>
                 <Link href="/activities" className="hover:text-white transition-colors flex items-center gap-2">
                   <i className="bi bi-grid-3x3-gap"></i>
-                  Каталог активностей
+                  Каталог идей
                 </Link>
               </li>
               <li>
@@ -112,43 +108,56 @@ function Footer() {
 
           <div>
             <h3 className="font-bold text-lg mb-4 text-cyan-400">Категории</h3>
-            <select 
-              className="w-full bg-slate-800 border border-slate-600 text-slate-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:border-transparent transition-colors hover:bg-slate-700"
-              defaultValue=""
-              onChange={(e) => {
-                if (e.target.value) {
-                  window.location.href = e.target.value;
-                }
-              }}
-            >
-              <option value="" disabled className="text-slate-500">
-                Выберите категорию...
-              </option>
-              <option value="/activities?category=creativity">
-                🎨 Творчество
-              </option>
-              <option value="/activities?category=active_games">
-                🚴 Активные игры
-              </option>
-              <option value="/activities?category=learn_new">
-                💡 Узнать что-то новое
-              </option>
-              <option value="/activities?category=cooking">
-                ☕ Кулинария
-              </option>
-              <option value="/activities?category=gifts">
-                🎁 Сделать подарок
-              </option>
-              <option value="/activities?category=experiments">
-                🧪 Эксперименты
-              </option>
-              <option value="/activities?category=reading_stories">
-                📚 Чтение и истории
-              </option>
-              <option value="/activities?category=surprise_me">
-                🎲 Удиви меня!
-              </option>
-            </select>
+            <ul className="space-y-2 text-slate-400">
+              <li>
+                <Link href="/activities?category=creativity" className="hover:text-white transition-colors flex items-center gap-2">
+                  <i className="bi bi-palette"></i>
+                  Творчество
+                </Link>
+              </li>
+              <li>
+                <Link href="/activities?category=active_games" className="hover:text-white transition-colors flex items-center gap-2">
+                  <i className="bi bi-bicycle"></i>
+                  Активные игры
+                </Link>
+              </li>
+              <li>
+                <Link href="/activities?category=learn_new" className="hover:text-white transition-colors flex items-center gap-2">
+                  <i className="bi bi-lightbulb"></i>
+                  Узнать что-то новое
+                </Link>
+              </li>
+              <li>
+                <Link href="/activities?category=cooking" className="hover:text-white transition-colors flex items-center gap-2">
+                  <i className="bi bi-cup-hot"></i>
+                  Кулинария
+                </Link>
+              </li>
+              <li>
+                <Link href="/activities?category=gifts" className="hover:text-white transition-colors flex items-center gap-2">
+                  <i className="bi bi-gift"></i>
+                  Сделать подарок
+                </Link>
+              </li>
+              <li>
+                <Link href="/activities?category=experiments" className="hover:text-white transition-colors flex items-center gap-2">
+                  <i className="bi bi-beaker"></i>
+                  Эксперименты
+                </Link>
+              </li>
+              <li>
+                <Link href="/activities?category=reading_stories" className="hover:text-white transition-colors flex items-center gap-2">
+                  <i className="bi bi-book"></i>
+                  Чтение и истории
+                </Link>
+              </li>
+              <li>
+                <Link href="/activities?category=surprise_me" className="hover:text-white transition-colors flex items-center gap-2">
+                  <i className="bi bi-dice-5"></i>
+                  Удиви меня!
+                </Link>
+              </li>
+            </ul>
           </div>
         </div>
         
@@ -176,7 +185,6 @@ export default function RootLayout({
   return (
     <html lang="ru">
       <head>
-        {/* Bootstrap Icons CDN */}
         <link 
           rel="stylesheet" 
           href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css"
