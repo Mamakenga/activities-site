@@ -99,7 +99,16 @@ function Footer() {
                   Каталог активностей
                 </Link>
               </li>
-              <div className="relative">
+              <li>
+                <a href="https://t.me/ne_skuchno_bot" className="hover:text-white transition-colors flex items-center gap-2">
+                  <i className="bi bi-telegram"></i>
+                  Telegram бот
+                </a>
+              </li>
+            </ul>
+          </div>
+
+          <div className="relative">
             <button 
               className="font-bold text-lg mb-4 text-cyan-400 flex items-center gap-2 hover:text-cyan-300 transition-colors"
               onClick={() => document.getElementById('categories-menu')?.classList.toggle('hidden')}
@@ -158,6 +167,7 @@ function Footer() {
               </li>
             </ul>
           </div>
+        </div>
         
         <div className="border-t border-slate-700 pt-8 mt-8 text-center text-slate-400">
           <div className="flex items-center justify-center gap-4 mb-4">
@@ -168,7 +178,7 @@ function Footer() {
               <i className="bi bi-envelope text-xl"></i>
             </a>
           </div>
-          <p>&copy; 2025 Мама, мне скучно! Сделано с ❤️ для детей и взрослых</p>
+          <p>&copy; 2025 Мама, мне скучно! Сделано с ❤️ для детей и взрослых.</p>
         </div>
       </div>
     </footer>
