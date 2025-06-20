@@ -62,8 +62,41 @@ function Navigation() {
 }
 
 'use client'
+import { useState, useEffect, useRef } from 'react'
 
 function Footer() {
+  const [showCategories, setShowCategories] = useState(false)
+  const [selectedCategory, setSelectedCategory] = useState('Выберите категорию...')
+  const dropdownRef = useRef<HTMLDivElement>(null)
+
+  const categories = [
+    { id: 'creativity', title: 'Творчество', icon: 'bi-palette' },
+    { id: 'active_games', title: 'Активные игры', icon: 'bi-bicycle' },
+    { id: 'learn_new', title: 'Узнать что-то новое', icon: 'bi-lightbulb' },
+    { id: 'cooking', title: 'Кулинария', icon: 'bi-cup-hot' },
+    { id: 'gifts', title: 'Сделать подарок', icon: 'bi-gift' },
+    { id: 'experiments', title: 'Эксперименты', icon: 'bi-beaker' },
+    { id: 'reading_stories', title: 'Чтение и истории', icon: 'bi-book' },
+    { id: 'surprise_me', title: 'Удиви меня!', icon: 'bi-dice-5' }
+  ]
+
+  const handleCategorySelect = (category: typeof categories[0]) => {
+    setSelectedCategory(category.title)
+    setShowCategories(false)
+    window.location.href = `/activities?category=${category.id}`
+  }
+
+  // Закрытие dropdown при клике вне него
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setShowCategories(false)
+      }
+    }
+
+    document.addEventListener('mousedown', handleClickOutside)
+    return () => document.removeEventListener('mousedown', handleClickOutside)
+  }, [])
   return (
     <footer className="bg-slate-900 border-t border-slate-700 text-white py-12">
       <div className="max-w-6xl mx-auto px-4">
@@ -110,45 +143,30 @@ function Footer() {
             </ul>
           </div>
 
-          <div>
+          <div className="relative" ref={dropdownRef}>
             <h3 className="font-bold text-lg mb-4 text-cyan-400">Категории</h3>
-            <select 
-              className="w-full bg-slate-800 border border-slate-600 text-slate-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:border-transparent transition-colors hover:bg-slate-700"
-              defaultValue=""
-              onChange={(e) => {
-                if (e.target.value) {
-                  window.location.href = e.target.value;
-                }
-              }}
+            <button
+              className="w-full bg-slate-800 border border-slate-600 text-slate-300 rounded-lg px-3 py-2 text-left flex items-center justify-between hover:bg-slate-700 focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:border-transparent transition-colors"
+              onClick={() => setShowCategories(!showCategories)}
             >
-              <option value="" disabled className="text-slate-500">
-                Выберите категорию...
-              </option>
-              <option value="/activities?category=creativity">
-                🎨 Творчество
-              </option>
-              <option value="/activities?category=active_games">
-                🚴 Активные игры
-              </option>
-              <option value="/activities?category=learn_new">
-                💡 Узнать что-то новое
-              </option>
-              <option value="/activities?category=cooking">
-                ☕ Кулинария
-              </option>
-              <option value="/activities?category=gifts">
-                🎁 Сделать подарок
-              </option>
-              <option value="/activities?category=experiments">
-                🧪 Эксперименты
-              </option>
-              <option value="/activities?category=reading_stories">
-                📚 Чтение и истории
-              </option>
-              <option value="/activities?category=surprise_me">
-                🎲 Удиви меня!
-              </option>
-            </select>
+              <span className="text-slate-400">{selectedCategory}</span>
+              <i className={`bi bi-chevron-${showCategories ? 'up' : 'down'} transition-transform`}></i>
+            </button>
+            
+            {showCategories && (
+              <div className="absolute top-full left-0 right-0 mt-1 bg-slate-800 border border-slate-600 rounded-lg shadow-lg z-10 max-h-60 overflow-y-auto">
+                {categories.map((category) => (
+                  <button
+                    key={category.id}
+                    className="w-full px-3 py-2 text-left hover:bg-slate-700 transition-colors flex items-center gap-2 text-slate-300 hover:text-white first:rounded-t-lg last:rounded-b-lg"
+                    onClick={() => handleCategorySelect(category)}
+                  >
+                    <i className={`${category.icon} text-cyan-400`}></i>
+                    {category.title}
+                  </button>
+                ))}
+              </div>
+            )}
           </div>
         </div>
         
