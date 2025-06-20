@@ -168,7 +168,7 @@ function Footer() {
               <i className="bi bi-envelope text-xl"></i>
             </a>
           </div>
-          <p>&copy; 2024 Мама, мне скучно! Сделано с ❤️ для детей и взрослых.</p>
+          <p>&copy; 2025 Мама, мне скучно! Сделано с ❤️ для детей и взрослых</p>
         </div>
       </div>
     </footer>
