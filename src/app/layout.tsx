@@ -2,6 +2,36 @@ import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import './globals.css'
 import Link from 'next/link'
+import './globals.css'
+import { Inter } from 'next/font/google'
+
+const inter = Inter({ subsets: ['latin'] })
+
+export const metadata = {
+  title: 'Мама, мне скучно!',
+  description: 'Telegram-приложение для детских активностей',
+}
+
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode
+}) {
+  return (
+    <html lang="ru">
+      <head>
+        {/* Bootstrap Icons CDN */}
+        <link 
+          rel="stylesheet" 
+          href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css"
+        />
+      </head>
+      <body className={inter.className}>
+        {children}
+      </body>
+    </html>
+  )
+}
 
 const inter = Inter({ subsets: ['latin', 'cyrillic'] })
 
