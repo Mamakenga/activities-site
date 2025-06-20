@@ -76,7 +76,7 @@ function Footer() {
               Только доступные материалы и понятные инструкции.
             </p>
             <a 
-              href="https://t.me/mamakenga" 
+              href="https://t.me/ne_skuchno_bot" 
               className="inline-flex items-center gap-2 bg-yellow-400 text-slate-800 px-6 py-3 rounded-lg hover:bg-yellow-500 transition-colors font-medium"
             >
               <i className="bi bi-telegram"></i>
