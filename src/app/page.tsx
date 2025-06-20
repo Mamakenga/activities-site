@@ -1,29 +1,6 @@
 export default function Home() {
   return (
     <div className="min-h-screen bg-white">
-      {/* Header */}
-      <header className="bg-white shadow-sm">
-        <div className="max-w-6xl mx-auto px-4 py-4">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-2">
-              <span className="text-2xl">🎯</span>
-              <span className="text-xl font-bold text-gray-800">Мама, мне скучно!</span>
-            </div>
-            <nav className="flex items-center gap-6">
-              <a href="/activities" className="text-gray-600 hover:text-blue-600 transition-colors">
-                Каталог активностей
-              </a>
-              <a 
-                href="#telegram" 
-                className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition-colors"
-              >
-                Открыть приложение
-              </a>
-            </nav>
-          </div>
-        </div>
-      </header>
-
       {/* Hero Section */}
       <section className="bg-gradient-to-br from-blue-50 to-purple-50 py-20">
         <div className="max-w-6xl mx-auto px-4 text-center">
@@ -123,7 +100,7 @@ export default function Home() {
             {/* Feature 5 */}
             <div className="text-center p-6">
               <div className="text-4xl mb-4">🌈</div>
-              <h3 className="text-xl font-semibold text-gray-800 mb-3">
+              <h3 className="text-xl font-semibold text-gray-808 mb-3">
                 8 категорий активностей
               </h3>
               <p className="text-gray-600">
@@ -246,7 +223,7 @@ export default function Home() {
             </h3>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <a 
-                href="https://t.me/your_bot_username"
+                href="https://t.me/mamakenga"
                 className="bg-white text-blue-600 px-8 py-4 rounded-xl font-semibold text-lg hover:bg-gray-100 transition-colors inline-flex items-center justify-center gap-2"
               >
                 <span>🚀</span>
@@ -265,47 +242,6 @@ export default function Home() {
           </div>
         </div>
       </section>
-
-      {/* Footer */}
-      <footer className="bg-gray-800 text-white py-12">
-        <div className="max-w-6xl mx-auto px-4">
-          <div className="grid md:grid-cols-3 gap-8">
-            <div>
-              <div className="flex items-center gap-2 mb-4">
-                <span className="text-2xl">🎯</span>
-                <span className="text-xl font-bold">Мама, мне скучно!</span>
-              </div>
-              <p className="text-gray-400">
-                Telegram-приложение для поиска идей детского и взрослого досуга. 
-                Никогда больше не услышите фразу "Мне скучно!" от ребенка и всегда будете знать, где найти идеи для собственного свободного времени!
-              </p>
-            </div>
-
-            <div>
-              <h4 className="text-lg font-semibold mb-4">Чем займемся сегодня?</h4>
-              <ul className="space-y-2 text-gray-400">
-                <li><a href="/activities?category=creativity" className="hover:text-white transition-colors">🎨 Творчество</a></li>
-                <li><a href="/activities?category=active_games" className="hover:text-white transition-colors">🏃‍♂️ Активные игры</a></li>
-                <li><a href="/activities?category=cooking" className="hover:text-white transition-colors">👨‍🍳 Кулинария</a></li>
-                <li><a href="/activities?category=experiments" className="hover:text-white transition-colors">🔬 Эксперименты</a></li>
-              </ul>
-            </div>
-
-            <div>
-              <h4 className="text-lg font-semibold mb-4">Контакты</h4>
-              <ul className="space-y-2 text-gray-400">
-                <li><a href="https://t.me/mamakenga" className="hover:text-white transition-colors">💬 Поддержка в Telegram</a></li>
-                <li><a href="mailto:mamakenga1@gmail.com" className="hover:text-white transition-colors">📧 Email</a></li>
-                <li><span>🌍 Европа</span></li>
-              </ul>
-            </div>
-          </div>
-
-          <div className="border-t border-gray-700 pt-8 mt-8 text-center text-gray-400">
-            <p>&copy; 2024 Мама, мне скучно! Все права защищены.</p>
-          </div>
-        </div>
-      </footer>
     </div>
   )
 }
