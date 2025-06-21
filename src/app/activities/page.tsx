@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
+import Link from 'next/link'
 import { supabase, Activity } from '@/lib/supabase'
 
 export default function ActivitiesPage() {
@@ -175,71 +176,116 @@ export default function ActivitiesPage() {
             {/* Сетка занятий */}
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
               {activities.map((activity) => (
-                <div
-                  key={activity.id}
-                  className="bg-slate-700 rounded-xl border border-slate-600 hover:border-yellow-400 transition-all duration-300 p-6 hover:shadow-lg hover:shadow-yellow-400/10"
-                >
-                  {/* Заголовок */}
-                  <div className="flex items-start justify-between mb-3">
-                    <h3 className="font-semibold text-lg text-white line-clamp-2">
-                      {activity.title}
-                    </h3>
-                    {activity.premium && (
-                      <span className="bg-yellow-400 text-slate-800 text-xs px-2 py-1 rounded-full ml-2 flex items-center gap-1">
-                        <i className="bi bi-star-fill"></i>
-                        Premium
-                      </span>
-                    )}
-                  </div>
-
-                  {/* Описание */}
-                  <p className="text-slate-300 text-sm mb-4 line-clamp-2">
-                    {activity.short_description}
-                  </p>
-
-                  {/* Метаданные */}
-                  <div className="flex items-center justify-between text-sm mb-4">
-                    <span className="text-cyan-400 flex items-center gap-1">
-                      <i className={getDurationIcon(activity.duration_minutes)}></i>
-                      {getDurationText(activity.duration_minutes)}
-                    </span>
-                    <span className="text-yellow-400 flex items-center gap-1">
-                      <i className={getDifficultyIcon(activity.difficulty)}></i>
-                      {getDifficultyText(activity.difficulty)}
-                    </span>
-                  </div>
-
-                  {/* Материалы */}
-                  {activity.materials && activity.materials.length > 0 && (
-                    <div className="mb-4">
-                      <p className="text-xs text-slate-400 mb-2 flex items-center gap-1">
-                        <i className="bi bi-tools"></i>
-                        Понадобится:
-                      </p>
-                      <div className="flex flex-wrap gap-1">
-                        {activity.materials.slice(0, 3).map((material, idx) => (
-                          <span
-                            key={idx}
-                            className="bg-slate-600 text-slate-200 text-xs px-2 py-1 rounded border border-slate-500"
-                          >
-                            {material}
-                          </span>
-                        ))}
-                        {activity.materials.length > 3 && (
-                          <span className="text-xs text-slate-400 px-2 py-1">
-                            +{activity.materials.length - 3}
-                          </span>
-                        )}
-                      </div>
+                <Link key={activity.id} href={`/activities/${activity.id}`}>
+                  <div className="bg-slate-700 rounded-xl border border-slate-600 hover:border-yellow-400 transition-all duration-300 p-6 hover:shadow-lg hover:shadow-yellow-400/10 cursor-pointer hover:transform hover:scale-105">
+                    {/* Заголовок */}
+                    <div className="flex items-start justify-between mb-3">
+                      <h3 className="font-semibold text-lg text-white line-clamp-2">
+                        {activity.title}
+                      </h3>
+                      {activity.premium && (
+                        <span className="bg-yellow-400 text-slate-800 text-xs px-2 py-1 rounded-full ml-2 flex items-center gap-1">
+                          <i className="bi bi-star-fill"></i>
+                          Premium
+                        </span>
+                      )}
                     </div>
-                  )}
 
-                  {/* Кнопка */}
-                  <button className="w-full bg-yellow-400 hover:bg-yellow-500 text-slate-800 py-2 px-4 rounded-lg transition-colors text-sm font-medium flex items-center justify-center gap-2">
-                    <i className="bi bi-arrow-right-circle"></i>
-                    Подробнее
-                  </button>
-                </div>
+                    {/* Описание */}
+                    <p className="text-slate-300 text-sm mb-4 line-clamp-2">
+                      {activity.short_description}
+                    </p>
+
+                    {/* Метаданные */}
+                    <div className="flex items-center justify-between text-sm mb-4">
+                      <span className="text-cyan-400 flex items-center gap-1">
+                        <i className={getDurationIcon(activity.duration_minutes)}></i>
+                        {getDurationText(activity.duration_minutes)}
+                      </span>
+                      <span className="text-yellow-400 flex items-center gap-1">
+                        <i className={getDifficultyIcon(activity.difficulty)}></i>
+                        {getDifficultyText(activity.difficulty)}
+                      </span>
+                    </div>
+
+                    {/* Возрастные группы */}
+                    {activity.age_groups && activity.age_groups.length > 0 && (
+                      <div className="mb-4">
+                        <p className="text-xs text-slate-400 mb-2 flex items-center gap-1">
+                          <i className="bi bi-people"></i>
+                          Возраст:
+                        </p>
+                        <div className="flex flex-wrap gap-1">
+                          {activity.age_groups.slice(0, 3).map((age, idx) => (
+                            <span
+                              key={idx}
+                              className="bg-slate-600 text-slate-200 text-xs px-2 py-1 rounded border border-slate-500"
+                            >
+                              {age}
+                            </span>
+                          ))}
+                          {activity.age_groups.length > 3 && (
+                            <span className="text-xs text-slate-400 px-2 py-1">
+                              +{activity.age_groups.length - 3}
+                            </span>
+                          )}
+                        </div>
+                      </div>
+                    )}
+
+                    {/* Материалы */}
+                    {activity.materials && activity.materials.length > 0 && (
+                      <div className="mb-4">
+                        <p className="text-xs text-slate-400 mb-2 flex items-center gap-1">
+                          <i className="bi bi-tools"></i>
+                          Понадобится:
+                        </p>
+                        <div className="flex flex-wrap gap-1">
+                          {activity.materials.slice(0, 3).map((material, idx) => (
+                            <span
+                              key={idx}
+                              className="bg-slate-600 text-slate-200 text-xs px-2 py-1 rounded border border-slate-500"
+                            >
+                              {material}
+                            </span>
+                          ))}
+                          {activity.materials.length > 3 && (
+                            <span className="text-xs text-slate-400 px-2 py-1">
+                              +{activity.materials.length - 3}
+                            </span>
+                          )}
+                        </div>
+                      </div>
+                    )}
+
+                    {/* Теги */}
+                    {activity.tags && activity.tags.length > 0 && (
+                      <div className="mb-4">
+                        <div className="flex flex-wrap gap-1">
+                          {activity.tags.slice(0, 4).map((tag, idx) => (
+                            <span
+                              key={idx}
+                              className="bg-slate-800 text-cyan-300 text-xs px-2 py-1 rounded border border-slate-600"
+                            >
+                              #{tag}
+                            </span>
+                          ))}
+                          {activity.tags.length > 4 && (
+                            <span className="text-xs text-slate-400 px-2 py-1">
+                              +{activity.tags.length - 4}
+                            </span>
+                          )}
+                        </div>
+                      </div>
+                    )}
+
+                    {/* Кнопка */}
+                    <div className="w-full bg-yellow-400 hover:bg-yellow-500 text-slate-800 py-2 px-4 rounded-lg transition-colors text-sm font-medium flex items-center justify-center gap-2">
+                      <i className="bi bi-arrow-right-circle"></i>
+                      Подробнее
+                    </div>
+                  </div>
+                </Link>
               ))}
             </div>
 
@@ -269,6 +315,24 @@ export default function ActivitiesPage() {
             )}
           </>
         )}
+
+        {/* CTA для Telegram */}
+        <div className="mt-12 bg-gradient-to-r from-yellow-400 to-orange-500 rounded-xl p-8 text-center">
+          <h2 className="text-2xl font-bold text-slate-800 mb-4 flex items-center justify-center gap-2">
+            <i className="bi bi-telegram"></i>
+            Больше идей в Telegram!
+          </h2>
+          <p className="text-slate-700 mb-6 max-w-2xl mx-auto">
+            Получайте персональные подборки активностей каждый день прямо в мессенджере
+          </p>
+          <a 
+            href="https://t.me/ne_skuchno_bot"
+            className="inline-flex items-center gap-2 bg-slate-800 text-yellow-400 px-8 py-4 rounded-xl font-bold hover:bg-slate-700 transition-colors text-lg"
+          >
+            <i className="bi bi-telegram"></i>
+            Открыть Telegram бот
+          </a>
+        </div>
       </div>
     </div>
   )
