@@ -180,15 +180,11 @@ export default function ActivitiesPage() {
 
         {/* Результаты */}
         {loading ? (
-  <div className="text-center py-12">
-    <div className="w-12 h-12 border-4 border-yellow-400 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
-    <p className="text-slate-300">
-      {selectedCategory === 'surprise_me' 
-        ? 'Подбираем сюрпризы для тебя...' 
-        : 'Загружаем интересные занятия...'}
-    </p>
-  </div>
-) : (
+          <div className="text-center py-12">
+            <div className="w-12 h-12 border-4 border-yellow-400 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+            <p className="text-slate-300">Загружаем интересные занятия...</p>
+          </div>
+        ) : (
           <>
             <div className="mb-6 flex items-center justify-between">
               <p className="text-slate-300 flex items-center gap-2">
