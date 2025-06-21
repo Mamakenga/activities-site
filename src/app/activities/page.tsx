@@ -27,7 +27,7 @@ export default function ActivitiesPage() {
     { id: '3-5', title: '3-5 лет' },
     { id: '6-8', title: '6-8 лет' },
     { id: '9-12', title: '9-12 лет' },
-    { id: '13-17', title: '13-17 лет' },
+    { id: '13-17', title: '13-16 лет' },
     { id: '18+', title: '18+ лет' },
   ]
 
@@ -37,8 +37,7 @@ export default function ActivitiesPage() {
       try {
         let query = supabase.from('activities').select('*')
 
-        // Для "Удиви меня" не фильтруем по категории, берем все
-        if (selectedCategory !== 'all' && selectedCategory !== 'surprise_me') {
+        if (selectedCategory !== 'all') {
           query = query.eq('category', selectedCategory)
         }
 
@@ -49,38 +48,7 @@ export default function ActivitiesPage() {
         const { data, error } = await query.order('created_at', { ascending: false })
 
         if (error) throw error
-        
-        let result = data || []
-        
-        // Если выбрана категория "Удиви меня", перемешиваем и берем случайные
-        if (selectedCategory === 'surprise_me' && result.length > 0) {
-          // Перемешиваем массив случайно
-          result = result.sort(() => Math.random() - 0.5)
-          // Берем случайные активности из разных категорий
-          const uniqueCategories = [...new Set(result.map(activity => activity.category))]
-          const randomActivities: Activity[] = []
-          
-          // Берем по одной активности из каждой категории
-          uniqueCategories.forEach(category => {
-            const categoryActivities = result.filter(activity => activity.category === category)
-            if (categoryActivities.length > 0) {
-              const randomActivity = categoryActivities[Math.floor(Math.random() * categoryActivities.length)]
-              randomActivities.push(randomActivity)
-            }
-          })
-          
-          // Если получилось мало активностей, добавляем еще случайных
-          while (randomActivities.length < Math.min(12, result.length)) {
-            const randomActivity = result[Math.floor(Math.random() * result.length)]
-            if (!randomActivities.find(activity => activity.id === randomActivity.id)) {
-              randomActivities.push(randomActivity)
-            }
-          }
-          
-          result = randomActivities
-        }
-        
-        setActivities(result)
+        setActivities(data || [])
       } catch (error) {
         console.error('Ошибка загрузки:', error)
       } finally {
@@ -355,7 +323,7 @@ export default function ActivitiesPage() {
             Больше идей в Telegram!
           </h2>
           <p className="text-slate-700 mb-6 max-w-2xl mx-auto">
-            Получайте персональные подборки идей каждый день прямо в Telegram
+            Получайте персональные подборки идей каждый день прямо в 
           </p>
           <a 
             href="https://t.me/ne_skuchno_bot"
