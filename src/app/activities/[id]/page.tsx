@@ -50,7 +50,7 @@ function getCategoryColor(category: string): string {
   const colors: Record<string, string> = {
     'active_games': 'bg-red-900 text-red-300 border-red-700',
     'creativity': 'bg-purple-900 text-purple-300 border-purple-700',
-    'learn_new': 'bg-[#1d2a3d] text-blue-300 border-blue-700',
+    'learn_new': 'bg-blue-900 text-blue-300 border-blue-700',
     'cooking': 'bg-green-900 text-green-300 border-green-700',
     'gifts': 'bg-yellow-900 text-yellow-300 border-yellow-700',
     'experiments': 'bg-orange-900 text-orange-300 border-orange-700',
@@ -249,7 +249,7 @@ export default async function ActivityDetailPage({ params }: Props) {
                   {activity.skills_developed.map((skill, index) => (
                     <span 
                       key={index}
-                      className="bg-blue-900 text-yellow-300 px-3 py-1 rounded-full text-sm font-medium border border-cyan-400"
+                      className="bg-[#1d2a3d] text-yellow-300 px-3 py-1 rounded-full text-sm font-medium border border-cyan-400"
                     >
                       {skill}
                     </span>
