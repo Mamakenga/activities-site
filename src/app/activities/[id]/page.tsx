@@ -7,7 +7,7 @@ interface Props {
   params: { id: string }
 }
 
-// Получение данных этой идеи
+// Получение данных активности
 async function getActivity(id: string): Promise<Activity | null> {
   const { data, error } = await supabase
     .from('activities')
@@ -29,7 +29,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
   if (!activity) {
     return {
-      title: 'Идея не найдена | Мама, мне скучно!',
+      title: 'Активность не найдена | Мама, мне скучно!',
     }
   }
 
@@ -48,15 +48,15 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 // Функция для получения цвета категории
 function getCategoryColor(category: string): string {
   const colors: Record<string, string> = {
-    'active_games': 'bg-red-100 text-red-800 border-red-200',
-    'creativity': 'bg-purple-100 text-purple-800 border-purple-200',
-    'learn_new': 'bg-blue-100 text-blue-800 border-blue-200',
-    'cooking': 'bg-green-100 text-green-800 border-green-200',
-    'gifts': 'bg-yellow-100 text-yellow-800 border-yellow-200',
-    'experiments': 'bg-orange-100 text-orange-800 border-orange-200',
-    'reading_stories': 'bg-indigo-100 text-indigo-800 border-indigo-200',
+    'active_games': 'bg-red-900 text-red-300 border-red-700',
+    'creativity': 'bg-purple-900 text-purple-300 border-purple-700',
+    'learn_new': 'bg-blue-900 text-blue-300 border-blue-700',
+    'cooking': 'bg-green-900 text-green-300 border-green-700',
+    'gifts': 'bg-yellow-900 text-yellow-300 border-yellow-700',
+    'experiments': 'bg-orange-900 text-orange-300 border-orange-700',
+    'reading_stories': 'bg-indigo-900 text-indigo-300 border-indigo-700',
   }
-  return colors[category] || 'bg-gray-100 text-gray-800 border-gray-200'
+  return colors[category] || 'bg-gray-900 text-gray-300 border-gray-700'
 }
 
 // Функция для получения названия категории
@@ -101,25 +101,25 @@ export default async function ActivityDetailPage({ params }: Props) {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50">
+    <div className="min-h-screen bg-slate-800 text-white">
       <div className="max-w-4xl mx-auto px-4 py-8">
         {/* Breadcrumb Navigation */}
         <nav className="mb-6">
-          <div className="flex items-center gap-2 text-sm text-slate-600">
-            <Link href="/" className="hover:text-blue-600 transition-colors">
+          <div className="flex items-center gap-2 text-sm text-slate-400">
+            <Link href="/" className="hover:text-cyan-400 transition-colors">
               Главная
             </Link>
-            <i className="bi bi-chevron-right"></i>
-            <Link href="/activities" className="hover:text-blue-600 transition-colors">
+            <i className="bi bi-chevron-right text-slate-500"></i>
+            <Link href="/activities" className="hover:text-cyan-400 transition-colors">
               Каталог активностей
             </Link>
-            <i className="bi bi-chevron-right"></i>
-            <span className="text-slate-900 font-medium">{activity.title}</span>
+            <i className="bi bi-chevron-right text-slate-500"></i>
+            <span className="text-white font-medium">{activity.title}</span>
           </div>
         </nav>
 
         {/* Header */}
-        <div className="bg-white rounded-2xl shadow-lg p-8 mb-8">
+        <div className="bg-slate-700 rounded-2xl border border-slate-600 p-8 mb-8">
           <div className="flex flex-col md:flex-row md:items-start gap-6">
             <div className="flex-1">
               <div className="flex items-center gap-3 mb-4">
@@ -127,48 +127,48 @@ export default async function ActivityDetailPage({ params }: Props) {
                   {getCategoryName(activity.category)}
                 </span>
                 {activity.premium && (
-                  <span className="bg-gradient-to-r from-yellow-400 to-orange-400 text-white px-3 py-1 rounded-full text-sm font-medium">
+                  <span className="bg-gradient-to-r from-yellow-400 to-orange-400 text-slate-800 px-3 py-1 rounded-full text-sm font-medium">
                     ⭐ Premium
                   </span>
                 )}
               </div>
               
-              <h1 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">
+              <h1 className="text-3xl md:text-4xl font-bold text-white mb-4">
                 {activity.title}
               </h1>
               
               {activity.short_description && (
-                <p className="text-xl text-slate-600 mb-6">
+                <p className="text-xl text-slate-300 mb-6">
                   {activity.short_description}
                 </p>
               )}
 
               {/* Метаинформация */}
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                <div className="bg-slate-50 rounded-lg p-4 text-center">
+                <div className="bg-slate-600 rounded-lg p-4 text-center border border-slate-500">
                   <div className="text-2xl mb-1">⏰</div>
-                  <div className="text-sm text-slate-600">Время</div>
-                  <div className="font-semibold">{activity.duration_minutes} мин</div>
+                  <div className="text-sm text-slate-400">Время</div>
+                  <div className="font-semibold text-cyan-400">{activity.duration_minutes} мин</div>
                 </div>
                 
-                <div className="bg-slate-50 rounded-lg p-4 text-center">
+                <div className="bg-slate-600 rounded-lg p-4 text-center border border-slate-500">
                   <div className="text-2xl mb-1">{getDifficultyEmoji(activity.difficulty)}</div>
-                  <div className="text-sm text-slate-600">Сложность</div>
-                  <div className="font-semibold">{getDifficultyText(activity.difficulty)}</div>
+                  <div className="text-sm text-slate-400">Сложность</div>
+                  <div className="font-semibold text-yellow-400">{getDifficultyText(activity.difficulty)}</div>
                 </div>
                 
-                <div className="bg-slate-50 rounded-lg p-4 text-center">
+                <div className="bg-slate-600 rounded-lg p-4 text-center border border-slate-500">
                   <div className="text-2xl mb-1">👥</div>
-                  <div className="text-sm text-slate-600">Возраст</div>
-                  <div className="font-semibold text-xs">
+                  <div className="text-sm text-slate-400">Возраст</div>
+                  <div className="font-semibold text-xs text-white">
                     {activity.age_groups?.join(', ') || 'Любой'}
                   </div>
                 </div>
                 
-                <div className="bg-slate-50 rounded-lg p-4 text-center">
+                <div className="bg-slate-600 rounded-lg p-4 text-center border border-slate-500">
                   <div className="text-2xl mb-1">📍</div>
-                  <div className="text-sm text-slate-600">Место</div>
-                  <div className="font-semibold">
+                  <div className="text-sm text-slate-400">Место</div>
+                  <div className="font-semibold text-white">
                     {activity.location === 'indoor' ? 'Дома' : 
                      activity.location === 'outdoor' ? 'На улице' : 'Где угодно'}
                   </div>
@@ -184,12 +184,12 @@ export default async function ActivityDetailPage({ params }: Props) {
           <div className="md:col-span-2 space-y-8">
             {/* Подробное описание */}
             {activity.full_description && (
-              <div className="bg-white rounded-2xl shadow-lg p-6">
-                <h2 className="text-2xl font-bold text-slate-900 mb-4 flex items-center gap-2">
-                  <i className="bi bi-info-circle text-blue-500"></i>
+              <div className="bg-slate-700 rounded-2xl border border-slate-600 p-6">
+                <h2 className="text-2xl font-bold text-white mb-4 flex items-center gap-2">
+                  <i className="bi bi-info-circle text-cyan-400"></i>
                   О занятии
                 </h2>
-                <p className="text-slate-700 leading-relaxed">
+                <p className="text-slate-300 leading-relaxed">
                   {activity.full_description}
                 </p>
               </div>
@@ -197,18 +197,18 @@ export default async function ActivityDetailPage({ params }: Props) {
 
             {/* Пошаговые инструкции */}
             {activity.instructions && activity.instructions.length > 0 && (
-              <div className="bg-white rounded-2xl shadow-lg p-6">
-                <h2 className="text-2xl font-bold text-slate-900 mb-6 flex items-center gap-2">
-                  <i className="bi bi-list-ol text-green-500"></i>
+              <div className="bg-slate-700 rounded-2xl border border-slate-600 p-6">
+                <h2 className="text-2xl font-bold text-white mb-6 flex items-center gap-2">
+                  <i className="bi bi-list-ol text-yellow-400"></i>
                   Пошаговые инструкции
                 </h2>
                 <div className="space-y-4">
                   {activity.instructions.map((instruction, index) => (
                     <div key={index} className="flex gap-4">
-                      <div className="flex-shrink-0 w-8 h-8 bg-green-500 text-white rounded-full flex items-center justify-center font-bold text-sm">
+                      <div className="flex-shrink-0 w-8 h-8 bg-yellow-400 text-slate-800 rounded-full flex items-center justify-center font-bold text-sm">
                         {index + 1}
                       </div>
-                      <p className="text-slate-700 leading-relaxed pt-1">
+                      <p className="text-slate-300 leading-relaxed pt-1">
                         {instruction}
                       </p>
                     </div>
@@ -222,15 +222,15 @@ export default async function ActivityDetailPage({ params }: Props) {
           <div className="space-y-6">
             {/* Материалы */}
             {activity.materials && activity.materials.length > 0 && (
-              <div className="bg-white rounded-2xl shadow-lg p-6">
-                <h3 className="text-xl font-bold text-slate-900 mb-4 flex items-center gap-2">
-                  <i className="bi bi-bag text-purple-500"></i>
+              <div className="bg-slate-700 rounded-2xl border border-slate-600 p-6">
+                <h3 className="text-xl font-bold text-white mb-4 flex items-center gap-2">
+                  <i className="bi bi-bag text-cyan-400"></i>
                   Что понадобится
                 </h3>
                 <ul className="space-y-2">
                   {activity.materials.map((material, index) => (
-                    <li key={index} className="flex items-center gap-2 text-slate-700">
-                      <i className="bi bi-check-circle text-green-500"></i>
+                    <li key={index} className="flex items-center gap-2 text-slate-300">
+                      <i className="bi bi-check-circle text-yellow-400"></i>
                       {material}
                     </li>
                   ))}
@@ -240,16 +240,16 @@ export default async function ActivityDetailPage({ params }: Props) {
 
             {/* Развиваемые навыки */}
             {activity.skills_developed && activity.skills_developed.length > 0 && (
-              <div className="bg-white rounded-2xl shadow-lg p-6">
-                <h3 className="text-xl font-bold text-slate-900 mb-4 flex items-center gap-2">
-                  <i className="bi bi-lightbulb text-yellow-500"></i>
+              <div className="bg-slate-700 rounded-2xl border border-slate-600 p-6">
+                <h3 className="text-xl font-bold text-white mb-4 flex items-center gap-2">
+                  <i className="bi bi-lightbulb text-yellow-400"></i>
                   Что развивает
                 </h3>
                 <div className="flex flex-wrap gap-2">
                   {activity.skills_developed.map((skill, index) => (
                     <span 
                       key={index}
-                      className="bg-yellow-50 text-yellow-800 px-3 py-1 rounded-full text-sm font-medium border border-yellow-200"
+                      className="bg-yellow-900 text-yellow-300 px-3 py-1 rounded-full text-sm font-medium border border-yellow-700"
                     >
                       {skill}
                     </span>
@@ -260,16 +260,16 @@ export default async function ActivityDetailPage({ params }: Props) {
 
             {/* Теги */}
             {activity.tags && activity.tags.length > 0 && (
-              <div className="bg-white rounded-2xl shadow-lg p-6">
-                <h3 className="text-xl font-bold text-slate-900 mb-4 flex items-center gap-2">
-                  <i className="bi bi-tags text-blue-500"></i>
+              <div className="bg-slate-700 rounded-2xl border border-slate-600 p-6">
+                <h3 className="text-xl font-bold text-white mb-4 flex items-center gap-2">
+                  <i className="bi bi-tags text-cyan-400"></i>
                   Теги
                 </h3>
                 <div className="flex flex-wrap gap-2">
                   {activity.tags.map((tag, index) => (
                     <span 
                       key={index}
-                      className="bg-blue-50 text-blue-700 px-3 py-1 rounded-full text-sm"
+                      className="bg-slate-600 text-cyan-300 px-3 py-1 rounded-full text-sm border border-slate-500"
                     >
                       #{tag}
                     </span>
@@ -279,14 +279,14 @@ export default async function ActivityDetailPage({ params }: Props) {
             )}
 
             {/* CTA - Telegram Bot */}
-            <div className="bg-gradient-to-br from-yellow-400 to-orange-500 rounded-2xl p-6 text-center text-white">
+            <div className="bg-gradient-to-br from-yellow-400 to-orange-500 rounded-2xl p-6 text-center text-slate-800">
               <h3 className="text-xl font-bold mb-2">Попробуй в Telegram!</h3>
-              <p className="text-yellow-100 mb-4 text-sm">
+              <p className="text-slate-700 mb-4 text-sm">
                 Получай персональные подборки активностей каждый день
               </p>
               <a 
                 href="https://t.me/ne_skuchno_bot" 
-                className="inline-flex items-center gap-2 bg-white text-orange-600 px-6 py-3 rounded-xl font-medium hover:bg-yellow-50 transition-colors"
+                className="inline-flex items-center gap-2 bg-slate-800 text-yellow-400 px-6 py-3 rounded-xl font-medium hover:bg-slate-700 transition-colors"
               >
                 <i className="bi bi-telegram"></i>
                 Открыть бот
@@ -296,11 +296,11 @@ export default async function ActivityDetailPage({ params }: Props) {
         </div>
 
         {/* Навигация снизу */}
-        <div className="mt-12 bg-white rounded-2xl shadow-lg p-6">
+        <div className="mt-12 bg-slate-700 rounded-2xl border border-slate-600 p-6">
           <div className="flex flex-col sm:flex-row justify-between items-center gap-4">
             <Link 
               href="/activities"
-              className="flex items-center gap-2 bg-slate-100 hover:bg-slate-200 text-slate-700 px-6 py-3 rounded-xl transition-colors"
+              className="flex items-center gap-2 bg-slate-600 hover:bg-slate-500 text-slate-300 hover:text-white px-6 py-3 rounded-xl transition-colors border border-slate-500"
             >
               <i className="bi bi-arrow-left"></i>
               Вернуться к каталогу
@@ -308,7 +308,7 @@ export default async function ActivityDetailPage({ params }: Props) {
             
             <Link 
               href={`/activities?category=${activity.category}`}
-              className="flex items-center gap-2 bg-blue-500 hover:bg-blue-600 text-white px-6 py-3 rounded-xl transition-colors"
+              className="flex items-center gap-2 bg-yellow-400 hover:bg-yellow-500 text-slate-800 px-6 py-3 rounded-xl transition-colors font-medium"
             >
               <i className="bi bi-collection"></i>
               Ещё из категории "{getCategoryName(activity.category)}"
