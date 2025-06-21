@@ -359,7 +359,7 @@ export default function ActivitiesPage() {
             Больше идей в Telegram!
           </h2>
           <p className="text-slate-700 mb-6 max-w-2xl mx-auto">
-            Получайте персональные подборки идей каждый день прямо в Telegram
+            Получайте персональные подборки идей каждый день прямо в Телеграм
           </p>
           <a 
             href="https://t.me/ne_skuchno_bot"
