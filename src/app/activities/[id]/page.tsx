@@ -249,7 +249,7 @@ export default async function ActivityDetailPage({ params }: Props) {
                   {activity.skills_developed.map((skill, index) => (
                     <span 
                       key={index}
-                      className="bg-yellow-900 text-yellow-300 px-3 py-1 rounded-full text-sm font-medium border border-yellow-700"
+                      className="bg-blue-900 text-yellow-300 px-3 py-1 rounded-full text-sm font-medium border border-cyan-400"
                     >
                       {skill}
                     </span>
