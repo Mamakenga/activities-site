@@ -25,7 +25,7 @@ body {
   font-family: Arial, Helvetica, sans-serif;
 }
 
-/* Добавляем только необходимые утилиты для обрезки текста */
+/* Только необходимые утилиты для обрезки текста */
 @layer utilities {
   .line-clamp-1 {
     overflow: hidden;
@@ -47,4 +47,79 @@ body {
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 3;
   }
+
+  /* Анимации для каскадного появления карточек */
+  @keyframes cascade-in {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Классы для каскадного появления с разными задержками */
+  .animate-cascade-in {
+    animation: cascade-in 0.6s ease-out forwards;
+    opacity: 0; /* Начальное состояние */
+  }
+
+  .animate-delay-100 { animation-delay: 0.1s; }
+  .animate-delay-200 { animation-delay: 0.2s; }
+  .animate-delay-300 { animation-delay: 0.3s; }
+  .animate-delay-400 { animation-delay: 0.4s; }
+  .animate-delay-500 { animation-delay: 0.5s; }
+  .animate-delay-600 { animation-delay: 0.6s; }
+  .animate-delay-700 { animation-delay: 0.7s; }
+  .animate-delay-800 { animation-delay: 0.8s; }
+  .animate-delay-900 { animation-delay: 0.9s; }
+
+  /* Анимации для hover эффектов иконок */
+  @keyframes icon-rotate {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+
+  .animate-icon-hover:hover {
+    animation: icon-rotate 0.6s ease-in-out;
+  }
+
+  /* Анимации для тегов при hover */
+  .animate-tag-hover {
+    transition: transform 0.2s ease-out, box-shadow 0.2s ease-out;
+  }
+
+  .animate-tag-hover:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  }
+
+  /* Анимации для bounce эффекта галочек */
+  @keyframes bounce-in {
+    0% {
+      opacity: 0;
+      transform: scale(0.3);
+    }
+    50% {
+      opacity: 1;
+      transform: scale(1.1);
+    }
+    100% {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  .animate-bounce-in {
+    animation: bounce-in 0.6s ease-out forwards;
+    opacity: 0;
+  }
+
+  .animate-bounce-delay-100 { animation-delay: 0.1s; }
+  .animate-bounce-delay-200 { animation-delay: 0.2s; }
+  .animate-bounce-delay-300 { animation-delay: 0.3s; }
+  .animate-bounce-delay-400 { animation-delay: 0.4s; }
+  .animate-bounce-delay-500 { animation-delay: 0.5s; }
 }

@@ -121,29 +121,13 @@ export default function ActivitiesPage() {
     }
   }
 
-  // Функция для получения класса задержки анимации
-  const getAnimationDelayClass = (index: number) => {
-    const delayClasses = [
-      'animate-delay-100',
-      'animate-delay-200', 
-      'animate-delay-300',
-      'animate-delay-400',
-      'animate-delay-500',
-      'animate-delay-600',
-      'animate-delay-700',
-      'animate-delay-800',
-      'animate-delay-900'
-    ]
-    return delayClasses[index % delayClasses.length]
-  }
-
   return (
     <div className="min-h-screen bg-slate-800 text-white p-4">
       <div className="max-w-6xl mx-auto">
         {/* Заголовок */}
         <div className="text-center mb-8">
           <h1 className="text-4xl font-bold mb-2 flex items-center justify-center gap-3">
-            <i className="bi bi-grid-3x3-gap text-yellow-400 animate-icon-hover"></i>
+            <i className="bi bi-grid-3x3-gap text-yellow-400"></i>
             Каталог интересных занятий
           </h1>
           <p className="text-slate-300">
@@ -157,7 +141,7 @@ export default function ActivitiesPage() {
             {/* Категории */}
             <div>
               <label className="block text-sm font-medium text-cyan-400 mb-2 flex items-center gap-2">
-                <i className="bi bi-funnel animate-icon-hover"></i>
+                <i className="bi bi-funnel"></i>
                 Категория
               </label>
               <select
@@ -176,7 +160,7 @@ export default function ActivitiesPage() {
             {/* Возраст */}
             <div>
               <label className="block text-sm font-medium text-cyan-400 mb-2 flex items-center gap-2">
-                <i className="bi bi-people animate-icon-hover"></i>
+                <i className="bi bi-people"></i>
                 Возраст
               </label>
               <select
@@ -196,19 +180,19 @@ export default function ActivitiesPage() {
 
         {/* Результаты */}
         {loading ? (
-          <div className="text-center py-12">
-            <div className="w-12 h-12 border-4 border-yellow-400 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
-            <p className="text-slate-300">
-              {selectedCategory === 'surprise_me' 
-                ? 'Подбираем сюрпризы для тебя...' 
-                : 'Загружаем интересные занятия...'}
-            </p>
-          </div>
-        ) : (
+  <div className="text-center py-12">
+    <div className="w-12 h-12 border-4 border-yellow-400 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+    <p className="text-slate-300">
+      {selectedCategory === 'surprise_me' 
+        ? 'Подбираем сюрпризы для тебя...' 
+        : 'Загружаем интересные занятия...'}
+    </p>
+  </div>
+) : (
           <>
             <div className="mb-6 flex items-center justify-between">
               <p className="text-slate-300 flex items-center gap-2">
-                <i className="bi bi-search text-cyan-400 animate-icon-hover"></i>
+                <i className="bi bi-search text-cyan-400"></i>
                 Найдено интересных занятий: <span className="font-semibold text-yellow-400">{activities.length}</span>
               </p>
               {activities.length > 0 && (
@@ -219,7 +203,7 @@ export default function ActivitiesPage() {
                   }}
                   className="text-cyan-400 hover:text-cyan-300 text-sm flex items-center gap-1 transition-colors"
                 >
-                  <i className="bi bi-arrow-clockwise animate-icon-hover"></i>
+                  <i className="bi bi-arrow-clockwise"></i>
                   Сбросить фильтры
                 </button>
               )}
@@ -227,9 +211,9 @@ export default function ActivitiesPage() {
 
             {/* Сетка занятий */}
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {activities.map((activity, index) => (
+              {activities.map((activity) => (
                 <Link key={activity.id} href={`/activities/${activity.id}`}>
-                  <div className={`bg-slate-700 rounded-xl border border-slate-600 hover:border-yellow-400 transition-all duration-300 p-6 hover:shadow-lg hover:shadow-yellow-400/10 cursor-pointer hover:transform hover:scale-105 animate-cascade-in ${getAnimationDelayClass(index)}`}>
+                  <div className="bg-slate-700 rounded-xl border border-slate-600 hover:border-yellow-400 transition-all duration-300 p-6 hover:shadow-lg hover:shadow-yellow-400/10 cursor-pointer hover:transform hover:scale-105">
                     {/* Заголовок */}
                     <div className="flex items-start justify-between mb-3">
                       <h3 className="font-semibold text-lg text-white line-clamp-2">
@@ -237,7 +221,7 @@ export default function ActivitiesPage() {
                       </h3>
                       {activity.premium && (
                         <span className="bg-yellow-400 text-slate-800 text-xs px-2 py-1 rounded-full ml-2 flex items-center gap-1">
-                          <i className="bi bi-star-fill animate-icon-hover"></i>
+                          <i className="bi bi-star-fill"></i>
                           Premium
                         </span>
                       )}
@@ -251,11 +235,11 @@ export default function ActivitiesPage() {
                     {/* Метаданные */}
                     <div className="flex items-center justify-between text-sm mb-4">
                       <span className="text-cyan-400 flex items-center gap-1">
-                        <i className={`${getDurationIcon(activity.duration_minutes)} animate-icon-hover`}></i>
+                        <i className={getDurationIcon(activity.duration_minutes)}></i>
                         {getDurationText(activity.duration_minutes)}
                       </span>
                       <span className="text-yellow-400 flex items-center gap-1">
-                        <i className={`${getDifficultyIcon(activity.difficulty)} animate-icon-hover`}></i>
+                        <i className={getDifficultyIcon(activity.difficulty)}></i>
                         {getDifficultyText(activity.difficulty)}
                       </span>
                     </div>
@@ -264,14 +248,14 @@ export default function ActivitiesPage() {
                     {activity.age_groups && activity.age_groups.length > 0 && (
                       <div className="mb-4">
                         <p className="text-xs text-slate-400 mb-2 flex items-center gap-1">
-                          <i className="bi bi-people animate-icon-hover"></i>
+                          <i className="bi bi-people"></i>
                           Возраст:
                         </p>
                         <div className="flex flex-wrap gap-1">
                           {activity.age_groups.slice(0, 3).map((age, idx) => (
                             <span
                               key={idx}
-                              className="bg-slate-600 text-slate-200 text-xs px-2 py-1 rounded border border-slate-500 animate-tag-hover"
+                              className="bg-slate-600 text-slate-200 text-xs px-2 py-1 rounded border border-slate-500"
                             >
                               {age}
                             </span>
@@ -289,14 +273,14 @@ export default function ActivitiesPage() {
                     {activity.materials && activity.materials.length > 0 && (
                       <div className="mb-4">
                         <p className="text-xs text-slate-400 mb-2 flex items-center gap-1">
-                          <i className="bi bi-tools animate-icon-hover"></i>
+                          <i className="bi bi-tools"></i>
                           Понадобится:
                         </p>
                         <div className="flex flex-wrap gap-1">
                           {activity.materials.slice(0, 3).map((material, idx) => (
                             <span
                               key={idx}
-                              className="bg-slate-600 text-slate-200 text-xs px-2 py-1 rounded border border-slate-500 animate-tag-hover"
+                              className="bg-slate-600 text-slate-200 text-xs px-2 py-1 rounded border border-slate-500"
                             >
                               {material}
                             </span>
@@ -317,7 +301,7 @@ export default function ActivitiesPage() {
                           {activity.tags.slice(0, 4).map((tag, idx) => (
                             <span
                               key={idx}
-                              className="bg-slate-800 text-cyan-300 text-xs px-2 py-1 rounded border border-slate-600 animate-tag-hover"
+                              className="bg-slate-800 text-cyan-300 text-xs px-2 py-1 rounded border border-slate-600"
                             >
                               #{tag}
                             </span>
@@ -333,7 +317,7 @@ export default function ActivitiesPage() {
 
                     {/* Кнопка */}
                     <div className="w-full bg-yellow-400 hover:bg-yellow-500 text-slate-800 py-2 px-4 rounded-lg transition-colors text-sm font-medium flex items-center justify-center gap-2">
-                      <i className="bi bi-arrow-right-circle animate-icon-hover"></i>
+                      <i className="bi bi-arrow-right-circle"></i>
                       Подробнее
                     </div>
                   </div>
@@ -345,7 +329,7 @@ export default function ActivitiesPage() {
             {activities.length === 0 && (
               <div className="text-center py-12">
                 <div className="w-16 h-16 bg-slate-700 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <i className="bi bi-search text-3xl text-slate-400 animate-icon-hover"></i>
+                  <i className="bi bi-search text-3xl text-slate-400"></i>
                 </div>
                 <h3 className="text-xl font-semibold text-white mb-2">
                   Интересные занятия не найдены
@@ -360,7 +344,7 @@ export default function ActivitiesPage() {
                   }}
                   className="bg-cyan-400 hover:bg-cyan-500 text-slate-800 px-6 py-2 rounded-lg transition-colors font-medium flex items-center gap-2 mx-auto"
                 >
-                  <i className="bi bi-arrow-clockwise animate-icon-hover"></i>
+                  <i className="bi bi-arrow-clockwise"></i>
                   Сбросить фильтры
                 </button>
               </div>
@@ -371,7 +355,7 @@ export default function ActivitiesPage() {
         {/* CTA для Telegram */}
         <div className="mt-12 bg-gradient-to-r from-yellow-400 to-orange-500 rounded-xl p-8 text-center">
           <h2 className="text-2xl font-bold text-slate-800 mb-4 flex items-center justify-center gap-2">
-            <i className="bi bi-telegram animate-icon-hover"></i>
+            <i className="bi bi-telegram"></i>
             Больше идей в Telegram!
           </h2>
           <p className="text-slate-700 mb-6 max-w-2xl mx-auto">
@@ -381,8 +365,8 @@ export default function ActivitiesPage() {
             href="https://t.me/ne_skuchno_bot"
             className="inline-flex items-center gap-2 bg-slate-800 text-yellow-400 px-8 py-4 rounded-xl font-bold hover:bg-slate-700 transition-colors text-lg"
           >
-            <i className="bi bi-telegram animate-icon-hover"></i>
-            Открыть в Telegram
+            <i className="bi bi-telegram"></i>
+            Открыть Telegram бот
           </a>
         </div>
       </div>
