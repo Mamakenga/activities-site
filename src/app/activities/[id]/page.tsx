@@ -183,7 +183,7 @@ export default function ActivityDetailPage({ params }: Props) {
             {activity.full_description && (
               <div className="bg-slate-700 rounded-2xl border border-slate-600 p-6 animate-cascade-in animate-delay-300">
                 <h2 className="text-2xl font-bold text-white mb-4 flex items-center gap-2">
-                  <i className="bi bi-info-circle text-cyan-400 animate-icon-hover"></i>
+                  <i className="bi bi-info-circle text-cyan-400 animate-icon-wiggle"></i>
                   О занятии
                 </h2>
                 <p className="text-slate-300 leading-relaxed">
@@ -196,7 +196,7 @@ export default function ActivityDetailPage({ params }: Props) {
             {activity.instructions && activity.instructions.length > 0 && (
               <div className="bg-slate-700 rounded-2xl border border-slate-600 p-6 animate-cascade-in animate-delay-400">
                 <h2 className="text-2xl font-bold text-white mb-6 flex items-center gap-2">
-                  <i className="bi bi-list-ol text-yellow-400 animate-icon-hover"></i>
+                  <i className="bi bi-list-ol text-yellow-400 animate-icon-wiggle"></i>
                   Пошаговые инструкции
                 </h2>
                 <div className="space-y-4">
@@ -221,7 +221,7 @@ export default function ActivityDetailPage({ params }: Props) {
             {activity.materials && activity.materials.length > 0 && (
               <div className="bg-slate-700 rounded-2xl border border-slate-600 p-6 animate-cascade-in animate-delay-500">
                 <h3 className="text-xl font-bold text-white mb-4 flex items-center gap-2">
-                  <i className="bi bi-bag text-cyan-400 animate-icon-hover"></i>
+                  <i className="bi bi-bag text-cyan-400 animate-icon-wiggle"></i>
                   Что понадобится
                 </h3>
                 <ul className="space-y-2">
@@ -239,14 +239,14 @@ export default function ActivityDetailPage({ params }: Props) {
             {activity.skills_developed && activity.skills_developed.length > 0 && (
               <div className="bg-slate-700 rounded-2xl border border-slate-600 p-6 animate-cascade-in animate-delay-600">
                 <h3 className="text-xl font-bold text-white mb-4 flex items-center gap-2">
-                  <i className="bi bi-lightbulb text-yellow-400 animate-icon-hover"></i>
+                  <i className="bi bi-lightbulb text-yellow-400 animate-icon-wiggle"></i>
                   Что развивает
                 </h3>
                 <div className="flex flex-wrap gap-2">
                   {activity.skills_developed.map((skill, index) => (
                     <span 
                       key={index}
-                      className={`bg-[#1d2a3d] text-yellow-300 px-3 py-1 rounded-full text-sm font-medium border border-cyan-400 animate-tag-hover animate-cascade-in ${index < 5 ? `animate-delay-${(index + 1) * 100}` : ''}`}
+                      className={`bg-[#1d2a3d] text-yellow-300 px-3 py-1 rounded-full text-sm font-medium border border-cyan-400 animate-tag-hover animate-cascade-in cursor-pointer ${index < 5 ? `animate-delay-${(index + 1) * 100}` : ''}`}
                     >
                       {skill}
                     </span>
@@ -259,14 +259,14 @@ export default function ActivityDetailPage({ params }: Props) {
             {activity.tags && activity.tags.length > 0 && (
               <div className="bg-slate-700 rounded-2xl border border-slate-600 p-6 animate-cascade-in animate-delay-700">
                 <h3 className="text-xl font-bold text-white mb-4 flex items-center gap-2">
-                  <i className="bi bi-tags text-cyan-400 animate-icon-hover"></i>
+                  <i className="bi bi-tags text-cyan-400 animate-icon-wiggle"></i>
                   Теги
                 </h3>
                 <div className="flex flex-wrap gap-2">
                   {activity.tags.map((tag, index) => (
                     <span 
                       key={index}
-                      className={`bg-slate-600 text-cyan-300 px-3 py-1 rounded-full text-sm border border-slate-500 animate-tag-hover animate-cascade-in ${index < 5 ? `animate-delay-${(index + 1) * 100}` : ''}`}
+                      className={`bg-slate-600 text-cyan-300 px-3 py-1 rounded-full text-sm border border-slate-500 animate-tag-hover animate-cascade-in cursor-pointer ${index < 5 ? `animate-delay-${(index + 1) * 100}` : ''}`}
                     >
                       #{tag}
                     </span>
@@ -278,7 +278,7 @@ export default function ActivityDetailPage({ params }: Props) {
             {/* CTA - Telegram Bot */}
             <div className="bg-gradient-to-br from-yellow-400 to-orange-500 rounded-2xl p-6 text-center text-slate-800 animate-cascade-in animate-delay-800">
               <h3 className="text-xl font-bold mb-2 flex items-center justify-center gap-2">
-                <i className="bi bi-telegram animate-icon-hover"></i>
+                <i className="bi bi-telegram animate-icon-wiggle"></i>
                 Попробуй в Telegram!
               </h3>
               <p className="text-slate-700 mb-4 text-sm">

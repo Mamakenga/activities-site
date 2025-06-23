@@ -25,7 +25,7 @@ body {
   font-family: Arial, Helvetica, sans-serif;
 }
 
-/* Только необходимые утилиты для обрезки текста */
+/* Добавляем только необходимые утилиты для обрезки текста */
 @layer utilities {
   .line-clamp-1 {
     overflow: hidden;
@@ -82,8 +82,20 @@ body {
     100% { transform: rotate(360deg); }
   }
 
+  @keyframes icon-wiggle {
+    0% { transform: rotate(0deg); }
+    25% { transform: rotate(-5deg); }
+    75% { transform: rotate(5deg); }
+    100% { transform: rotate(0deg); }
+  }
+
   .animate-icon-hover:hover {
     animation: icon-rotate 0.6s ease-in-out;
+  }
+
+  /* НОВЫЙ: Легкий поворот для заголовков */
+  .animate-icon-wiggle:hover {
+    animation: icon-wiggle 0.5s ease-in-out;
   }
 
   /* Анимации для тегов при hover */
