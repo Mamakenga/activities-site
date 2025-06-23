@@ -1,13 +1,48 @@
-'use client'
-
 import { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
-import { useState, useEffect } from 'react'
 import { supabase, Activity } from '@/lib/supabase'
 
 interface Props {
   params: { id: string }
+}
+
+// Получение данных активности
+async function getActivity(id: string): Promise<Activity | null> {
+  const { data, error } = await supabase
+    .from('activities')
+    .select('*')
+    .eq('id', id)
+    .single()
+
+  if (error) {
+    console.error('Error fetching activity:', error)
+    return null
+  }
+
+  return data
+}
+
+// Генерация метаданных для SEO
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const activity = await getActivity(params.id)
+
+  if (!activity) {
+    return {
+      title: 'Активность не найдена | Мама, мне скучно!',
+    }
+  }
+
+  return {
+    title: `${activity.title} | Мама, мне скучно!`,
+    description: activity.short_description || activity.full_description?.slice(0, 160),
+    keywords: `${activity.title}, ${activity.category}, дети, активности, ${activity.tags?.join(', ')}`,
+    openGraph: {
+      title: activity.title,
+      description: activity.short_description || activity.full_description?.slice(0, 160),
+      type: 'article',
+    },
+  }
 }
 
 // Функция для получения цвета категории
@@ -58,40 +93,8 @@ function getDifficultyText(difficulty: string): string {
   return texts[difficulty] || 'Легко'
 }
 
-export default function ActivityDetailPage({ params }: Props) {
-  const [activity, setActivity] = useState<Activity | null>(null)
-  const [loading, setLoading] = useState(true)
-
-  useEffect(() => {
-    async function fetchActivity() {
-      const { data, error } = await supabase
-        .from('activities')
-        .select('*')
-        .eq('id', params.id)
-        .single()
-
-      if (error) {
-        console.error('Error fetching activity:', error)
-        setActivity(null)
-      } else {
-        setActivity(data)
-      }
-      setLoading(false)
-    }
-
-    fetchActivity()
-  }, [params.id])
-
-  if (loading) {
-    return (
-      <div className="min-h-screen bg-slate-800 text-white flex items-center justify-center">
-        <div className="text-center">
-          <div className="w-12 h-12 border-4 border-yellow-400 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
-          <p className="text-slate-300">Загружаем активность...</p>
-        </div>
-      </div>
-    )
-  }
+export default async function ActivityDetailPage({ params }: Props) {
+  const activity = await getActivity(params.id)
 
   if (!activity) {
     notFound()
@@ -101,7 +104,7 @@ export default function ActivityDetailPage({ params }: Props) {
     <div className="min-h-screen bg-slate-800 text-white">
       <div className="max-w-4xl mx-auto px-4 py-8">
         {/* Breadcrumb Navigation */}
-        <nav className="mb-6 animate-cascade-in animate-delay-100">
+        <nav className="mb-6">
           <div className="flex items-center gap-2 text-sm text-slate-400">
             <Link href="/" className="hover:text-cyan-400 transition-colors">
               Главная
@@ -116,7 +119,7 @@ export default function ActivityDetailPage({ params }: Props) {
         </nav>
 
         {/* Header */}
-        <div className="bg-slate-700 rounded-2xl border border-slate-600 p-8 mb-8 animate-cascade-in animate-delay-200">
+        <div className="bg-slate-700 rounded-2xl border border-slate-600 p-8 mb-8">
           <div className="flex flex-col md:flex-row md:items-start gap-6">
             <div className="flex-1">
               <div className="flex items-center gap-3 mb-4">
@@ -181,9 +184,9 @@ export default function ActivityDetailPage({ params }: Props) {
           <div className="md:col-span-2 space-y-8">
             {/* Подробное описание */}
             {activity.full_description && (
-              <div className="bg-slate-700 rounded-2xl border border-slate-600 p-6 animate-cascade-in animate-delay-300">
+              <div className="bg-slate-700 rounded-2xl border border-slate-600 p-6">
                 <h2 className="text-2xl font-bold text-white mb-4 flex items-center gap-2">
-                  <i className="bi bi-info-circle text-cyan-400 animate-icon-hover"></i>
+                  <i className="bi bi-info-circle text-cyan-400"></i>
                   О занятии
                 </h2>
                 <p className="text-slate-300 leading-relaxed">
@@ -194,15 +197,15 @@ export default function ActivityDetailPage({ params }: Props) {
 
             {/* Пошаговые инструкции */}
             {activity.instructions && activity.instructions.length > 0 && (
-              <div className="bg-slate-700 rounded-2xl border border-slate-600 p-6 animate-cascade-in animate-delay-400">
+              <div className="bg-slate-700 rounded-2xl border border-slate-600 p-6">
                 <h2 className="text-2xl font-bold text-white mb-6 flex items-center gap-2">
-                  <i className="bi bi-list-ol text-yellow-400 animate-icon-hover"></i>
+                  <i className="bi bi-list-ol text-yellow-400"></i>
                   Пошаговые инструкции
                 </h2>
                 <div className="space-y-4">
                   {activity.instructions.map((instruction, index) => (
                     <div key={index} className="flex gap-4">
-                      <div className={`flex-shrink-0 w-8 h-8 bg-yellow-400 text-slate-800 rounded-full flex items-center justify-center font-bold text-sm animate-bounce-in ${index < 5 ? `animate-bounce-delay-${(index + 1) * 100}` : ''}`}>
+                      <div className="flex-shrink-0 w-8 h-8 bg-yellow-400 text-slate-800 rounded-full flex items-center justify-center font-bold text-sm">
                         {index + 1}
                       </div>
                       <p className="text-slate-300 leading-relaxed pt-1">
@@ -219,15 +222,15 @@ export default function ActivityDetailPage({ params }: Props) {
           <div className="space-y-6">
             {/* Материалы */}
             {activity.materials && activity.materials.length > 0 && (
-              <div className="bg-slate-700 rounded-2xl border border-slate-600 p-6 animate-cascade-in animate-delay-500">
+              <div className="bg-slate-700 rounded-2xl border border-slate-600 p-6">
                 <h3 className="text-xl font-bold text-white mb-4 flex items-center gap-2">
-                  <i className="bi bi-bag text-cyan-400 animate-icon-hover"></i>
+                  <i className="bi bi-bag text-cyan-400"></i>
                   Что понадобится
                 </h3>
                 <ul className="space-y-2">
                   {activity.materials.map((material, index) => (
                     <li key={index} className="flex items-center gap-2 text-slate-300">
-                      <i className={`bi bi-check-circle text-yellow-400 animate-bounce-in ${index < 5 ? `animate-bounce-delay-${(index + 1) * 100}` : ''}`}></i>
+                      <i className="bi bi-check-circle text-yellow-400"></i>
                       {material}
                     </li>
                   ))}
@@ -237,16 +240,16 @@ export default function ActivityDetailPage({ params }: Props) {
 
             {/* Развиваемые навыки */}
             {activity.skills_developed && activity.skills_developed.length > 0 && (
-              <div className="bg-slate-700 rounded-2xl border border-slate-600 p-6 animate-cascade-in animate-delay-600">
+              <div className="bg-slate-700 rounded-2xl border border-slate-600 p-6">
                 <h3 className="text-xl font-bold text-white mb-4 flex items-center gap-2">
-                  <i className="bi bi-lightbulb text-yellow-400 animate-icon-hover"></i>
+                  <i className="bi bi-lightbulb text-yellow-400"></i>
                   Что развивает
                 </h3>
                 <div className="flex flex-wrap gap-2">
                   {activity.skills_developed.map((skill, index) => (
                     <span 
                       key={index}
-                      className={`bg-[#1d2a3d] text-yellow-300 px-3 py-1 rounded-full text-sm font-medium border border-cyan-400 animate-tag-hover animate-cascade-in ${index < 5 ? `animate-delay-${(index + 1) * 100}` : ''}`}
+                      className="bg-[#1d2a3d] text-yellow-300 px-3 py-1 rounded-full text-sm font-medium border border-cyan-400"
                     >
                       {skill}
                     </span>
@@ -257,16 +260,16 @@ export default function ActivityDetailPage({ params }: Props) {
 
             {/* Теги */}
             {activity.tags && activity.tags.length > 0 && (
-              <div className="bg-slate-700 rounded-2xl border border-slate-600 p-6 animate-cascade-in animate-delay-700">
+              <div className="bg-slate-700 rounded-2xl border border-slate-600 p-6">
                 <h3 className="text-xl font-bold text-white mb-4 flex items-center gap-2">
-                  <i className="bi bi-tags text-cyan-400 animate-icon-hover"></i>
+                  <i className="bi bi-tags text-cyan-400"></i>
                   Теги
                 </h3>
                 <div className="flex flex-wrap gap-2">
                   {activity.tags.map((tag, index) => (
                     <span 
                       key={index}
-                      className={`bg-slate-600 text-cyan-300 px-3 py-1 rounded-full text-sm border border-slate-500 animate-tag-hover animate-cascade-in ${index < 5 ? `animate-delay-${(index + 1) * 100}` : ''}`}
+                      className="bg-slate-600 text-cyan-300 px-3 py-1 rounded-full text-sm border border-slate-500"
                     >
                       #{tag}
                     </span>
@@ -276,41 +279,38 @@ export default function ActivityDetailPage({ params }: Props) {
             )}
 
             {/* CTA - Telegram Bot */}
-            <div className="bg-gradient-to-br from-yellow-400 to-orange-500 rounded-2xl p-6 text-center text-slate-800 animate-cascade-in animate-delay-800">
-              <h3 className="text-xl font-bold mb-2 flex items-center justify-center gap-2">
-                <i className="bi bi-telegram animate-icon-hover"></i>
-                Попробуй в Telegram!
-              </h3>
+            <div className="bg-gradient-to-br from-yellow-400 to-orange-500 rounded-2xl p-6 text-center text-slate-800">
+              <h3 className="text-xl font-bold mb-2">Попробуй в Telegram!</h3>
               <p className="text-slate-700 mb-4 text-sm">
                 Получай персональные подборки активностей каждый день
               </p>
               <a 
                 href="https://t.me/ne_skuchno_bot" 
-                className="inline-flex items-center gap-2 bg-slate-800 text-yellow-400 px-6 py-3 rounded-xl font-medium hover:bg-slate-700 transition-colors hover:scale-105 transform"
+                className="inline-flex items-center gap-2 bg-slate-800 text-yellow-400 px-6 py-3 rounded-xl font-medium hover:bg-slate-700 transition-colors"
               >
-                <i className="bi bi-telegram animate-icon-hover"></i>
-                Открыть в Телеграм
+                <i className="bi bi-telegram"></i>
+                Открыть бот
               </a>
             </div>
           </div>
         </div>
 
         {/* Навигация снизу */}
-        <div className="mt-12 bg-slate-700 rounded-2xl border border-slate-600 p-6 animate-cascade-in animate-delay-900">
+        <div className="mt-12 bg-slate-700 rounded-2xl border border-slate-600 p-6">
           <div className="flex flex-col sm:flex-row justify-between items-center gap-4">
             <Link 
               href="/activities"
-              className="flex items-center gap-2 bg-slate-600 hover:bg-slate-500 text-slate-300 hover:text-white px-6 py-3 rounded-xl transition-colors border border-slate-500 hover:scale-105 transform"
+              className="flex items-center gap-2 bg-slate-600 hover:bg-slate-500 text-slate-300 hover:text-white px-6 py-3 rounded-xl transition-colors border border-slate-500"
             >
-              <i className="bi bi-arrow-left animate-icon-hover"></i>
+              <i className="bi bi-arrow-left"></i>
               Вернуться к каталогу
             </Link>
             
             <Link 
               href={`/activities?category=${activity.category}`}
-              className="flex items-center gap-2 bg-yellow-400 hover:bg-yellow-500 text-slate-800 px-6 py-3 rounded-xl transition-colors font-medium hover:scale-105 transform"
+              className="flex items-center gap-2 bg-yellow-400 hover:bg-yellow-500 text-slate-800 px-6 py-3 rounded-xl transition-colors font-medium"
             >
-              <i className="bi bi-collection animate-icon-hover"></i>
+              <i className="bi bi-collection"></i>
               Ещё из категории "{getCategoryName(activity.category)}"
             </Link>
           </div>
